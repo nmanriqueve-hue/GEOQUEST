@@ -1,0 +1,185 @@
+.auth-header-container {
+  position: absolute;
+  top: 30px;
+  left: 55px;
+  right: 40px;
+
+}
+.auth-header {
+
+  display: flex;
+  gap: 12px;
+  background: var(--c-pale);
+  border-radius: 25px;
+  padding: 3px 24px;
+  z-index: -1;
+}
+
+.auth-header img {
+  width: 70px;
+  height: 70px;
+  margin-top: -20px;
+  margin-bottom: -10px;
+  filter: drop-shadow(0 2px 6px rgba(248, 248, 255, 0.79));
+  Z-Index: 1;
+}
+
+.auth-header button {
+  width: 40px;
+  height: 40px;
+  right: 20px;
+
+
+}
+.auth-title {
+  font-family: 'Jaro', sans-serif;
+  font-size: 2rem;
+  color: var(--c-dark-blue);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.auth-center {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+  justify-content: end;
+  margin-right: 24px;
+}
+
+.auth-center button {
+  padding: 7px 18px;
+  background: var(--c-dark-blue);
+  border: 1.5px solid rgba(177, 195, 212, 0.25);
+  border-radius: 20px;
+  font-family: 'Jaro', sans-serif;
+  font-size: 18px;
+  color: var(--c-pale);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  width: fit-content;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+.auth-center button:hover {
+  border: 2px solid var(--c-navy);
+  color: var(--c-pale);
+  transform: translateY(-1px);
+
+}
+
+.auth-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+
+}
+
+.auth-right button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  border-color: transparent;
+  border-radius: 50%;
+  color: var(--c-dark-blue);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  z-index: 1;
+}
+
+.auth-right button:hover {
+  transform: scale(1.1);
+}
+
+
+
+
+
+.btn-back {
+  position: absolute;
+  top: 100px;
+  left: 62px;
+  z-index: 1;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  color: var(--c-pale);
+  font-family: 'Jaro', sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.btn-back:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--c-light-blue);
+  transform: translateX(-2px);
+}
+
+
+
+.contenedor-como-jugar{
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+  background: transparent;
+}
+
+.card-como-jugar{
+  width: 760px;
+  max-width: 90%;
+  background: rgba(15, 23, 42, 0.68);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 24px;
+  padding: 32px 42px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.35);
+  color: white;
+}
+
+.card-como-jugar h1{
+  font-size: 38px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.card-como-jugar h2{
+  margin-top: 22px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #38bdf8;
+}
+
+.card-como-jugar p{
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  text-align: justify;
+}
+
+.card-como-jugar ul{
+  padding-left: 25px;
+}
+
+.card-como-jugar li{
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.seccion{
+  margin-top: 15px;
+}
+
+
+
+
+

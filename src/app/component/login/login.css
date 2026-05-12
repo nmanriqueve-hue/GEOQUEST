@@ -1,0 +1,134 @@
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+}
+
+.auth-header-container {
+ position: absolute;
+  top: 30px;
+  left: 55px;
+
+
+}
+.auth-header {
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--c-pale);
+
+  border-radius: 25px;
+  padding: 3px 24px;
+}
+
+.auth-header img {
+  width: 70px;
+  height: 70px;
+  margin-top: -20px;
+  margin-bottom: -10px;
+
+  Z-Index: 1;
+}
+
+.auth-title {
+  font-family: 'Jaro', sans-serif;
+  font-size: 2rem;
+  color: var(--c-dark-blue);
+  letter-spacing: 0.1em;
+}
+
+
+.auth-card {
+  background: rgba(26, 60, 114, 0.53);
+  border: 2px solid var(--c-mid-blue);
+  border-radius: 16px;
+  padding: 32px 28px;
+  width: 370px;
+  height: 428px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-title {
+  font-family: 'Jaro', sans-serif;
+  font-size: 40px;
+  color: var(--c-pale);
+  text-align: center;
+  letter-spacing: 0.08em;
+  margin-top: 8px;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-family: 'Jaro', sans-serif;
+  font-size: 20px;
+  color: var(--c-pale);
+}
+
+.form-input {
+  background: #D9D9D9;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: 'Jaro', sans-serif;
+  font-size: 0.95rem;
+  color: var(--c-navy);
+  outline: none;
+}
+
+.form-input:focus {
+  box-shadow: 0 0 0 2px #2596be;
+}
+
+
+.btn-enter {
+  background: #A4BDD7;
+  color: #1A3C72;
+  font-family: 'Jaro', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 12px;
+  width: 234px;
+  margin-left: 38px;
+  margin-bottom: 8px;
+}
+
+.btn-enter:hover {
+  background: var(--c-pale);
+  transform: translateY(-2px);
+}
+
+
+.auth-link {
+  font-family: 'Jaro', sans-serif;
+  font-size: 14px;
+  color: var(--c-pale);
+  text-align: center;
+}
+
+.auth-link a {
+  color: var(--c-sky);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
