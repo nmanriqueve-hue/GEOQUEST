@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-como-jugar',
@@ -10,4 +11,17 @@ import { RouterLink } from '@angular/router';
   templateUrl: './comoJugar.html',
   styleUrl: './comoJugar.css',
 })
-export class ComoJugar {}
+export class ComoJugar {
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  cerrarSesion(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+    console.log('Sesión cerrada correctamente');
+  }
+
+}
