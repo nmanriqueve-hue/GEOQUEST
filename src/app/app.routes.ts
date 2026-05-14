@@ -32,37 +32,37 @@ export const routes: Routes = [
   {
     path: 'home',
     component: Home,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
   {
     path: 'modo',
     component: Modo,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
   {
     path: 'libre',
     component: Libre,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
   {
     path: 'aprendizaje',
     component: Aprendizaje,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
   {
     path: 'perfil',
     component: Perfil,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
   {
     path: 'comojugar',
     component: ComoJugar,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
   {
     path: 'conocermas',
     component: ConocerMas,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
 
   {

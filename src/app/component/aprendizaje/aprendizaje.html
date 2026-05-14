@@ -53,68 +53,101 @@
 
 
 
-<!--Seleccion de las 4 op-->
+<div class="hero">
 
-<div class="contenedor-aprendizaje">
-
-  <div class="card-aprendizaje">
-
-    <h1>Modo Aprendizaje</h1>
-
-    <p class="descripcion">
-En el modo aprendizaje solo se tendra 10 preguntas de nivel fácil, del tema de su eleccion.   </p>
-
-    <div class="opciones">
-
-      <div class="opcion">
-        <input type="checkbox">
-
-        <img src="assets/bandera.jpg" alt="banderas">
-
-        <h2>Banderas</h2>
-      </div>
-
-      <div class="opcion">
-        <input type="checkbox">
-
-        <img src="assets/capital.jpg" alt="capitales">
-
-        <h2>Capitales</h2>
-      </div>
-
-      <div class="opcion">
-        <input type="checkbox">
-
-        <img src="assets/nombrep.jpg" alt="paises">
-
-        <h2>Nombres</h2>
-      </div>
-
-      <div class="opcion">
-        <input type="checkbox">
-
-        <img src="assets/todo.png" alt="todo">
-
-        <h2>Todas las anteriores</h2>
-      </div>
-
-    </div>
-
-    <button class="boton-empezar">
-      Empieza a aprender!
-    </button>
-
+  <div class="hero-header">
+    <h1 class="hero-title">Modo Aprendizaje</h1>
+    <p class="hero-subtitle">Elige una categoría para comenzar</p>
   </div>
 
-</div>
+  <div class="hero-cards">
+
+    <!-- Banderas -->
+    <div class="hero-card" routerLink="/juego/banderas">
+      <img class="card-img" src="assets/bandera.jpg" alt="Banderas" />
+      <h2 class="card-title">Banderas</h2>
+      <div class="card-desc">
+        <p>Selecciona la bandera correcta entre 4 opciones antes de que acabe el tiempo.</p>
+        <span class="card-cta">Jugar →</span>
+      </div>
+    </div>
+
+    <!-- Capitales -->
+    <div class="hero-card" routerLink="/juego/capitales">
+      <img class="card-img" src="assets/capital.jpg" alt="Capitales" />
+      <h2 class="card-title">Capitales</h2>
+      <div class="card-desc">
+        <p>Se te mostrará un país y deberás escribir su capital correctamente.</p>
+        <span class="card-cta">Jugar →</span>
+      </div>
+    </div>
+
+    <!-- Nombres -->
+    <div class="hero-card" routerLink="/juego/nombres">
+      <img class="card-img" src="assets/nombrep.jpg" alt="Nombres" />
+      <h2 class="card-title">Nombres</h2>
+      <div class="card-desc">
+        <p>Identifica la silueta de un país en el mapa y escribe su nombre.</p>
+        <span class="card-cta">Jugar →</span>
+      </div>
+    </div>
+
+    <div class="hero-card" routerLink="/juego/idioma">
+      <img class="card-img" src="assets/idioma.jpg" alt="Idioma" />
+      <h2 class="card-title">Idioma</h2>
+      <div class="card-desc">
+        <p>Descubre qué idioma se habla en cada país del mundo.</p>
+        <span class="card-cta">Jugar →</span>
+      </div>
+    </div>
+
+    <!-- Calling Codes -->
+    <div class="hero-card" routerLink="/juego/calling-codes">
+      <img class="card-img" src="assets/calling.jpg" alt="Calling Codes" />
+      <h2 class="card-title">Códigos</h2>
+      <div class="card-desc">
+        <p>Aprende los códigos telefónicos de cada país del mundo.</p>
+        <span class="card-cta">Jugar →</span>
+      </div>
+    </div>
+
+    <!-- Currencies -->
+    <div class="hero-card" routerLink="/juego/currencies">
+      <img class="card-img" src="assets/currency.jpg" alt="Currencies" />
+      <h2 class="card-title">Monedas</h2>
+      <div class="card-desc">
+        <p>Identifica la moneda oficial de cada país del mundo.</p>
+        <span class="card-cta">Jugar →</span>
+      </div>
+    </div>
+
+    <!-- Continents -->
+    <div class="hero-card" routerLink="/juego/continents">
+      <img class="card-img" src="assets/continente.png" alt="Continents" />
+      <h2 class="card-title">Continentes</h2>
+      <div class="card-desc">
+        <p>Ubica cada país en su continente correcto.</p>
+        <span class="card-cta">Jugar →</span>
+      </div>
+    </div>
+
+    <!-- Population -->
+    <div class="hero-card" routerLink="/juego/population">
+      <img class="card-img" src="assets/population.jpg" alt="Population" />
+      <h2 class="card-title">Población</h2>
+      <div class="card-desc">
+        <p>Adivina la población aproximada de cada país.</p>
+        <span class="card-cta">Jugar →</span>
+      </div>
+    </div>
 
 
-
+  </div>
 
 
 
 
   <button class="btn-back" routerLink="/modo">←</button>
-
+</div>
 </body>
 </html>
