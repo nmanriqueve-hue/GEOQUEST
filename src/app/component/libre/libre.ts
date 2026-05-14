@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-libre',
@@ -9,4 +10,16 @@ import {RouterLink} from "@angular/router";
   templateUrl: './libre.html',
   styleUrl: './libre.css',
 })
-export class Libre {}
+export class Libre {
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  cerrarSesion(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+    console.log('Sesión cerrada correctamente');
+  }
+}

@@ -6,24 +6,51 @@
   </div>
 </div>
 
-<div class="auth-container">
-  <div class="auth-card">
-    <h2 class="form-title">INICIAR SESIÓN</h2>
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <div class="auth-container">
+    <div class="auth-card">
+      <h2 class="form-title">INICIAR SESIÓN</h2>
 
-    <div class="form-group">
-      <label>Usuario:</label>
-      <input type="email" class="form-input" />
+      <div class="form-group">
+
+        <label>Usuario:</label>
+        <input class="form-input"
+               type="text"
+               id="username"
+               name="username"
+               [(ngModel)]="loginData.username"
+               placeholder="Usuario"
+               required
+               #username="ngModel" />
+
+      </div>
+      <div *ngIf="username.invalid && username.touched" class="error">
+        Usuario es requerido
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña:</label>
+        <input type="password" class="form-input"
+               id="password"
+               name="password"
+               [(ngModel)]="loginData.password"
+               placeholder="Tu contraseña"
+               required
+               #password="ngModel" />
+      </div>
+      <div *ngIf="password.invalid && password.touched" class="error">
+        <div *ngIf="password.errors?.['required']">Contraseña es requerida</div>
+      </div>
+      <button class="btn-enter"
+              type="submit" [disabled]="loginForm.invalid">ENTRAR
+      </button>
+      <p class="auth-link">¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
     </div>
-
-    <div class="form-group">
-      <label>Contraseña:</label>
-      <input type="password" class="form-input" />
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
     </div>
-
-    <button routerLink="/home" class="btn-enter">ENTRAR</button>
-
-    <p class="auth-link">¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
-
+    <div *ngIf="successMessage" class="success-Message">
+      {{ successMessage }}
+    </div>
   </div>
-
-</div>
+</form>
