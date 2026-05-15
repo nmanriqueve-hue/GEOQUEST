@@ -99,6 +99,194 @@
 
 
 
+
+
+
+
+
+
+
+
+
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 60px;
+  gap: 24px;
+
+}
+
+.hero-header {
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-title {
+  font-family: 'Jomhuria', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  color: var(--c-pale);
+  line-height: 1;
+  text-shadow: 0 0 20px var(--c-light-teal);
+  letter-spacing: 0.03em;
+}
+
+
+.hero-descripcion {
+  max-width: 680px;
+  font-size: 16px;
+  color: #A4BDD7;
+  line-height: 1.8;
+  opacity: 0.85;
+  align-items: flex-start;
+  text-align: left;
+
+}
+.hero-team {
+  font-family: 'Jaro', sans-serif;
+  font-size: 1.3rem;
+  color: #2596be;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 20px var(--c-light-teal);
+  text-align: left;
+  align-items: flex-start;
+}
+
+/* ── CARDS (igual que modo.css) ── */
+.hero-cards {
+  margin-top: 8px;
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-card {
+  position: relative;
+  width: 580px;
+  height: 160px;
+  background: rgba(41, 63, 99, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  padding: 12px 28px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+}
+
+.hero-card:nth-child(1) { animation-delay: 0.05s; }
+.hero-card:nth-child(2) { animation-delay: 0.12s; }
+.hero-card:nth-child(3) { animation-delay: 0.19s; }
+
+.hero-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(37, 150, 190, 0.55);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(37, 150, 190, 0.2);
+}
+
+/* ── AVATAR iniciales ── */
+.card-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2596be, #002868);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Jaro', sans-serif;
+  font-size: 1.6rem;
+  color: #fff;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 16px rgba(37, 150, 190, 0.35);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-card:hover .card-avatar {
+  transform: scale(1.12) rotate(-5deg);
+}
+
+/* ── TÍTULO ── */
+.card-title {
+  font-family: 'Jomhuria', serif;
+  font-size: 2.2rem;
+  color: var(--c-pale);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.hero-card:hover .card-title {
+  transform: translateY(-4px);
+}
+
+/* ── DESCRIPCIÓN siempre visible ── */
+.card-desc {
+
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+}
+
+.card-desc p {
+  font-size: 0.85rem;
+  color: #A4BDD7;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+.card-cta {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 7px 18px;
+  background: rgba(37, 150, 190, 0.15);
+  border: 1px solid rgba(37, 150, 190, 0.35);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: #2596be;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.card-cta:hover {
+  background: rgba(37, 150, 190, 0.28);
+  transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .btn-back {
   position: absolute;
   top: 100px;
@@ -120,99 +308,6 @@
   background: rgba(255,255,255,0.1);
   color: var(--c-light-blue);
   transform: translateX(-2px);
-}
-
-
-
-
-
-
-
-
-
-
-
-.contenedor-conocer{
-  width: 100%;
-  min-height: calc(100vh - 90px);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 140px;
-}
-
-.card-conocer{
-  width: 820px;
-  max-width: 90%;
-  background: rgba(15, 23, 42, 0.68);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 28px;
-  padding: 40px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0px 10px 30px rgba(0,0,0,0.35);
-  color: white;
-}
-
-.card-conocer h1{
-  text-align: center;
-  font-size: 42px;
-  margin-bottom: 25px;
-}
-
-.descripcion{
-  text-align: justify;
-  line-height: 1.8;
-  font-size: 17px;
-  margin-bottom: 35px;
-  color: #e2e8f0;
-}
-
-.seccion{
-  margin-top: 30px;
-}
-
-.seccion h2{
-  color: #38bdf8;
-  margin-bottom: 20px;
-  font-size: 26px;
-}
-
-.integrantes{
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.integrante{
-  background: rgba(255,255,255,0.05);
-  padding: 20px;
-  border-radius: 18px;
-}
-
-.integrante h3{
-  margin-bottom: 6px;
-  font-size: 22px;
-}
-
-.integrante p{
-  color: #cbd5e1;
-}
-
-.boton-github{
-  display: inline-block;
-  margin-top: 20px;
-  padding: 14px 26px;
-  background: #38bdf8;
-  color: #0f172a;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 14px;
-  transition: 0.3s;
-}
-
-.boton-github:hover{
-  transform: scale(1.05);
-  background: #7dd3fc;
 }
 
 
