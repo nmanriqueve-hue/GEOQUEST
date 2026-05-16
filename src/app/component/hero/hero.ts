@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
-import { Navbar } from '../navbar/navbar';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-libre',
-  imports: [RouterLink, Navbar],
-  templateUrl: './libre.html',
-  styleUrl: './libre.css',
+  selector: 'app-hero',
+  imports: [],
+  templateUrl: './hero.html',
+  styleUrl: './hero.css',
 })
-export class Libre {
+export class Hero {
+
   constructor(
     private authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {}
 
   cerrarSesion(): void {
@@ -20,4 +20,5 @@ export class Libre {
     this.router.navigate(['/login']);
     console.log('Sesión cerrada correctamente');
   }
+
 }

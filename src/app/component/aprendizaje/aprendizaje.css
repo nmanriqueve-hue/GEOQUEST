@@ -91,8 +91,19 @@
   z-index: 1;
 }
 
-.auth-right button:hover {
-  transform: scale(1.1);
+.hero {
+  width: 100%;
+  max-height: 920px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding-top: 100px;
+
+
+  padding-bottom: 50px;
 }
 
 
@@ -108,18 +119,8 @@
 
 
 
-
-.hero {
-  width: 100%;
-  max-height: 920px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-  padding-top: 100px;
-  padding-bottom: 50px;
+.auth-right button:hover {
+  transform: scale(1.1);
 }
 
 .hero-header {
@@ -159,7 +160,7 @@
 
 }
 
-/* ── CARD ── */
+
 .hero-card {
   position: relative;
   width: 280px;
@@ -193,7 +194,6 @@
     0 0 40px rgba(37, 150, 190, 0.2);
 }
 
-/* ── IMAGEN CIRCULAR ── */
 .card-img {
   width: 110px;
   height: 110px;
@@ -212,7 +212,7 @@
   transform: scale(1.08);
 }
 
-/* ── TÍTULO — sube en hover ── */
+
 .card-title {
   font-family: 'Jomhuria', serif;
   font-size: 52px;
@@ -228,7 +228,7 @@
   transform: translateY(-10px);
 }
 
-/* ── DESCRIPCIÓN — aparece en hover ── */
+
 .card-desc {
   display: flex;
   flex-direction: column;
