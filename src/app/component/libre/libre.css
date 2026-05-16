@@ -1,0 +1,150 @@
+
+.hero {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-header {
+  margin-top: 35px;
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-title {
+  font-family: 'Jomhuria', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  color: var(--c-pale);
+  line-height: 1;
+  text-shadow: 0 0 20px var(--c-light-teal);
+  letter-spacing: 0.03em;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: var(--c-pale);
+  text-shadow: 0 2px 8px var(--c-teal);
+  margin-top: 6px;
+  letter-spacing: 0.08em;
+}
+
+
+.hero-cards {
+  margin-top: 40px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 1;
+}
+
+.hero-card {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  background: rgba(41, 63, 99, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  padding: 40px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  text-decoration: none;
+}
+
+.hero-card:nth-child(1) { animation-delay: 0.05s; }
+.hero-card:nth-child(2) { animation-delay: 0.15s; }
+.hero-card:nth-child(3) { animation-delay: 0.25s; }
+
+
+.hero-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+
+.card-facil:hover {
+  border-color: rgba(45, 184, 124, 0.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(45, 184, 124, 0.25);
+}
+
+.card-medio:hover {
+  border-color: rgba(224, 167, 50, 0.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(224, 167, 50, 0.25);
+}
+
+.card-dificil:hover {
+  border-color: rgba(224, 82, 82, 0.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(224, 82, 82, 0.25);
+}
+
+/* ── ICONO ── */
+.card-icon {
+  font-size: 64px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+}
+
+.hero-card:hover .card-icon {
+  transform: scale(1.2) rotate(-5deg);
+}
+
+
+.card-title {
+  font-family: 'Jomhuria', serif;
+  font-size: 52px;
+  color: var(--c-pale);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  transition: transform 0.3s ease;
+}
+
+.card-facil:hover  .card-title { color: #6ee7b7; }
+.card-medio:hover  .card-title { color: #fcd34d; }
+.card-dificil:hover .card-title { color: #f87171; }
+
+
+.btn-back {
+  position: absolute;
+  top: 100px;
+  left: 62px;
+  z-index: 1;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  color: var(--c-pale);
+  font-family: 'Jaro', sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.btn-back:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--c-light-blue);
+  transform: translateX(-2px);
+}
+
+/* ── ANIMACIÓN ── */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 640px) {
+  .hero-cards { flex-direction: column; align-items: center; }
+  .hero-card  { width: 100%; max-width: 300px; }
+}
