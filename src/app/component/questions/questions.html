@@ -1,59 +1,71 @@
 <div class="q-wrap">
 
-  <h1 class="q-title">{{title}}</h1>
-
+  <h1 class="q-title">{{ title }}</h1>
 
   <div class="q-panel">
 
     <div class="q-topbar">
       <div class="q-hud-text q-chip">Total points: <span class="q-hud-num">0</span></div>
+
       <div class="q-hud-barra-wrap">
         <div class="q-hud-barra" style="width: 10%"></div>
       </div>
+
       <div class="q-hud-text q-chip">Question <span class="q-hud-num">1</span> / 10</div>
     </div>
 
     <div class="question-zone">
-      <ng-content /><!-- pregunta -->
-      <div class="question-flag">aqui el Pais</div>
+      <ng-content /><!-- question -->
+      <div class="question-flag">country here</div>
     </div>
 
     <div class="options-grid">
       <div class="options-grid options-btn">
+
         <div class="option-btn" data-idx="0">
           <span class="btn-emoji">🇨🇴</span>
           <span class="btn-nombre">Colombia</span>
         </div>
+
         <div class="option-btn" data-idx="1">
           <span class="btn-emoji">🇧🇷</span>
-          <span class="btn-nombre">Brasil</span>
+          <span class="btn-nombre">Brazil</span>
         </div>
+
         <div class="option-btn" data-idx="2">
           <span class="btn-emoji">🇦🇷</span>
           <span class="btn-nombre">Argentina</span>
         </div>
+
         <div class="option-btn" data-idx="3">
           <span class="btn-emoji">🇻🇪</span>
           <span class="btn-nombre">Venezuela</span>
         </div>
-      </div>
 
+      </div>
     </div>
+
     <div class="feedback" id="feedback"></div>
-    <button class="next-btn">Siguiente →</button>
+
+    <button class="next-btn">Next →</button>
   </div>
 
-
   <div class="q-panel result-overlay" id="resultOverlay">
-    <p style="font-size:14px;color:var(--c-light-blue);letter-spacing:.1em;text-transform:uppercase">Resultado final</p>
+
+    <p style="font-size:14px;color:var(--c-light-blue);letter-spacing:.1em;text-transform:uppercase">
+      Final Result
+    </p>
+
     <div class="result-score" id="resultScore">0/10</div>
+
     <p class="result-label" id="resultLabel"></p>
+
     <div class="result-actions">
-      <button class="btn-replay">Jugar de nuevo</button>
-      <button class="btn-menu" onclick="location.href='../modo.html'">Volver al menú</button>
+      <button class="btn-replay">Play Again</button>
+      <button class="btn-menu" onclick="location.href='../modo.html'">Back to Menu</button>
     </div>
+
   </div>
 </div>
 
 <button class="btn-back" routerLink="/modo">←</button>
-

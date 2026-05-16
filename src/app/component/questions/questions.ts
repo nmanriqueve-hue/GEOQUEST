@@ -1,4 +1,4 @@
-import { Component , Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
@@ -9,17 +9,14 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class Questions {
 
-
   @Input() title: string = '';
-
 
   dificultad: string = 'facil';
 
-
   config = {
-    facil:   { totalPreguntas: 10, tiempoSegundos: 60, label: 'Fácil 🟢'   },
-    medio:   { totalPreguntas: 15, tiempoSegundos: 40, label: 'Medio 🟡'   },
-    dificil: { totalPreguntas: 20, tiempoSegundos: 20, label: 'Difícil 🔴' },
+    facil:   { totalPreguntas: 10, tiempoSegundos: 60, label: 'Easy 🟢'   },
+    medio:   { totalPreguntas: 15, tiempoSegundos: 40, label: 'Medium 🟡'   },
+    dificil: { totalPreguntas: 20, tiempoSegundos: 20, label: 'Hard 🔴' },
   };
 
   constructor(private route: ActivatedRoute) {}
@@ -28,6 +25,7 @@ export class Questions {
 
     this.route.queryParams.subscribe(params => {
       const d = params['dificultad'];
+
       if (d === 'facil' || d === 'medio' || d === 'dificil') {
         this.dificultad = d;
       }
@@ -41,6 +39,5 @@ export class Questions {
   get cfg() {
     return this.config[this.dificultad as keyof typeof this.config];
   }
-
 
 }
