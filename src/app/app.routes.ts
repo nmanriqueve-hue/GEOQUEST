@@ -11,6 +11,15 @@ import { Perfil } from './component/perfil/perfil';
 import { ComoJugar } from './component/comoJugar/comoJugar';
 import { ConocerMas } from './component/conocer-mas/conocer-mas';
 import { authGuard } from './service/auth.guard';
+import { Questions } from './component/questions/questions';
+import { All } from './component/game/all/all';
+import { CallingCodes } from './component/game/calling-codes/calling-codes';
+import { Capitals } from './component/game/capitals/capitals';
+import { Continents } from './component/game/continents/continents';
+import { Currencies } from './component/game/currencies/currencies';
+import { Flags } from './component/game/flags/flags';
+import { Language } from './component/game/language/language';
+import { Population } from './component/game/population/population';
 
 export const routes: Routes = [
   {
@@ -64,7 +73,46 @@ export const routes: Routes = [
     component: ConocerMas,
     //canActivate: [authGuard]
   },
-
+  {
+    path: 'questions',
+    component: Questions,
+    //canActivate: [authGuard]
+  },
+  {
+    path: 'all',
+    component: All,
+    //canActivate: [authGuard]
+  },
+  {
+    path: 'calling-codes',
+    component: CallingCodes,
+    //canActivate: [authGuard]
+  },  {
+    path: 'capitals',
+    component: Capitals,
+    //canActivate: [authGuard]
+  },  {
+    path: 'continents',
+    component: Continents,
+    //canActivate: [authGuard]
+  },  {
+    path: 'currencies',
+    component: Currencies,
+    //canActivate: [authGuard]
+  },  {
+    path: 'flags',
+    component: Flags,
+    //canActivate: [authGuard]
+  },  {
+    path: 'language',
+    component: Language,
+    //canActivate: [authGuard]
+  },
+  {
+    path: 'population',
+    component: Population,
+    //canActivate: [authGuard]
+  },
 
   {
     path: '**',

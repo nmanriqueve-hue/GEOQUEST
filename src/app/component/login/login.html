@@ -9,42 +9,42 @@
 <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
   <div class="auth-container">
     <div class="auth-card">
-      <h2 class="form-title">INICIAR SESIÓN</h2>
+      <h2 class="form-title">LOGIN</h2>
 
       <div class="form-group">
 
-        <label>Usuario:</label>
+        <label>Username:</label>
         <input class="form-input"
                type="text"
                id="username"
                name="username"
                [(ngModel)]="loginData.username"
-               placeholder="Usuario"
+               placeholder="Username"
                required
                #username="ngModel" />
 
       </div>
       <div *ngIf="username.invalid && username.touched" class="error">
-        Usuario es requerido
+        Username is required
       </div>
 
       <div class="form-group">
-        <label>Contraseña:</label>
+        <label>Password:</label>
         <input type="password" class="form-input"
                id="password"
                name="password"
                [(ngModel)]="loginData.password"
-               placeholder="Tu contraseña"
+               placeholder="Your password"
                required
                #password="ngModel" />
       </div>
       <div *ngIf="password.invalid && password.touched" class="error">
-        <div *ngIf="password.errors?.['required']">Contraseña es requerida</div>
+        <div *ngIf="password.errors?.['required']">Password is required</div>
       </div>
       <button class="btn-enter"
-              type="submit" [disabled]="loginForm.invalid">ENTRAR
+              type="submit" [disabled]="loginForm.invalid">ENTER
       </button>
-      <p class="auth-link">¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
+      <p class="auth-link">Don't have an account? <a routerLink="/register">Sign up</a></p>
     </div>
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}

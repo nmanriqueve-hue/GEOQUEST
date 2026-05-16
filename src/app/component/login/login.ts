@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, FormsModule,CommonModule],
+  imports: [RouterLink, FormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -15,6 +15,7 @@ export class Login {
     username: '',
     password: '',
   };
+
   isLoading = false;
   errorMessage = '';
   successMessage: string = '';
@@ -28,14 +29,17 @@ export class Login {
   onSubmit() {
     this.errorMessage = '';
     this.successMessage = '';
+
     if (!this.loginData.username || !this.loginData.password) {
-      alert('Por favor, completa All los campos');
+      alert('Please fill in all fields');
       return;
     }
 
     if (this.isLoading) return;
+
     this.isLoading = true;
     this.errorMessage = '';
+
     const loginRequest = {
       usuario: this.loginData.username,
       password: this.loginData.password,
@@ -44,34 +48,50 @@ export class Login {
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
         this.isLoading = false;
-        console.log('Login exitoso:', response);
-        this.successMessage = '¡Inicio de sesión exitoso!';
-        console.log('Mensaje de error mostrado:', this.successMessage);
+
+        console.log('Successful login:', response);
+
+        this.successMessage = 'Login successful!';
+        console.log('Displayed success message:', this.successMessage);
+
         this.cdr.detectChanges();
+
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 2000);
       },
+
       error: (error) => {
         this.isLoading = false;
-        console.error('Error en login:', error);
+
+        console.error('Login error:', error);
+
         if (error.status === 0) {
-          this.errorMessage = 'Error de conexión. Verifica que el servidor esté corriendo.';
+          this.errorMessage =
+            'Connection error. Verify that the server is running.';
         } else if (error.status === 401) {
-          this.errorMessage = 'Usuario o contraseña incorrectos. Por favor, verifica tus credenciales.';
+          this.errorMessage =
+            'Incorrect username or password. Please verify your credentials.';
         } else if (error.status === 403) {
-          this.errorMessage = 'No tienes permiso para acceder. Contacta al administrador.';
+          this.errorMessage =
+            'You do not have permission to access. Contact the administrator.';
         } else if (error.status === 400) {
-          this.errorMessage = 'Error en los datos enviados. Verifica el formato.';
+          this.errorMessage =
+            'Error in the submitted data. Verify the format.';
         } else if (error.status === 500) {
-          this.errorMessage = 'Error interno del servidor. Intenta más tarde.';
+          this.errorMessage =
+            'Internal server error. Please try again later.';
         } else {
-          this.errorMessage = error.error?.message || error.error || 'Error al iniciar sesión. Intenta de nuevo.';
+          this.errorMessage =
+            error.error?.message ||
+            error.error ||
+            'Error logging in. Please try again.';
         }
-        console.log('Mensaje de error mostrado:', this.errorMessage);
+
+        console.log('Displayed error message:', this.errorMessage);
+
         this.cdr.detectChanges();
       },
-
     });
   }
 }

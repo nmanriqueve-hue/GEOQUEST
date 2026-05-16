@@ -1,17 +1,27 @@
+<div class="hero">
+  <div class="hero-header">
+    <h1 class="hero-title">Free Mode</h1>
+    <p class="hero-subtitle">Choose the difficulty:</p>
+  </div>
 
+  <div class="hero-cards">
 
-<body>
+    <div class="hero-card card-facil" [routerLink]="['/questions']" [queryParams]="{ dificultad: 'facil' }">
+      <div class="card-icon">🟢</div>
+      <h2 class="card-title">Easy</h2>
+    </div>
 
-<app-navbar />
+    <div class="hero-card card-medio" [routerLink]="['/questions']" [queryParams]="{ dificultad: 'medio' }">
+      <div class="card-icon">🟡</div>
+      <h2 class="card-title">Medium</h2>
+    </div>
 
-<main class="page-content">
-  <ng-content />
-</main>
+    <div class="hero-card card-dificil" [routerLink]="['/questions']" [queryParams]="{ dificultad: 'dificil' }">
+      <div class="card-icon">🔴</div>
+      <h2 class="card-title">Hard</h2>
+    </div>
 
+  </div>
 
-
-
-
-
-
-</body>
+  <button class="btn-back" routerLink="/modo">←</button>
+</div>

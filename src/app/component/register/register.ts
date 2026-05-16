@@ -11,10 +11,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './register.css',
 })
 export class Register {
+
   registerData = {
     username: '',
     password: '',
   };
+
   errorMessage: string = '';
   successMessage: string = '';
   isLoading: boolean = false;
@@ -27,50 +29,51 @@ export class Register {
 
   validarContrasenia(contrasenia: string): boolean {
 
-    // Verificar longitud mínima
+    // Check minimum length
     if (contrasenia.length < 6) {
-      this.errorMessage = 'La contraseña debe tener al menos 6 caracteres';
+      this.errorMessage = 'The password must contain at least 6 characters';
     }
 
-    // Verificar longitud máxima
+    // Check maximum length
     if (contrasenia.length > 20) {
-      this.errorMessage = 'La contraseña no puede tener más de 20 caracteres';
+      this.errorMessage = 'The password cannot contain more than 20 characters';
     }
 
-    // Verificar que tenga al menos una letra
+    // Check for at least one letter
     if (!/[A-Za-z]/.test(contrasenia)) {
-      this.errorMessage = 'La contraseña debe contener al menos una letra';
+      this.errorMessage = 'The password must contain at least one letter';
     }
 
-    // Verificar que tenga al menos un número
+    // Check for at least one number
     if (!/[0-9]/.test(contrasenia)) {
-      this.errorMessage = 'La contraseña debe contener al menos un número';
+      this.errorMessage = 'The password must contain at least one number';
     }
 
-    // Verificar que tenga al menos una mayúscula
+    // Check for at least one uppercase letter
     if (!/[A-Z]/.test(contrasenia)) {
-      this.errorMessage = 'La contraseña debe contener al menos una mayúscula';
+      this.errorMessage = 'The password must contain at least one uppercase letter';
     }
 
-    // Verificar que tenga al menos un carácter especial
+    // Check for at least one special character
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(contrasenia)) {
-      this.errorMessage = 'La contraseña debe contener al menos un carácter especial (!@#$%^&*)';
+      this.errorMessage = 'The password must contain at least one special character (!@#$%^&*)';
     }
 
-    // Verificar que no tenga espacios
+    // Check for spaces
     if (/\s/.test(contrasenia)) {
-      this.errorMessage = 'La contraseña no debe contener espacios';
+      this.errorMessage = 'The password must not contain spaces';
     }
 
     return this.errorMessage.length === 0;
   }
 
   onSubmit() {
+
     this.errorMessage = '';
     this.successMessage = '';
 
     if (!this.registerData.username || !this.registerData.password) {
-      this.errorMessage = 'All los campos son obligatorios';
+      this.errorMessage = 'All fields are required';
       return;
     }
 
@@ -80,9 +83,8 @@ export class Register {
       this.registerData.username.includes('/') ||
       this.registerData.username.includes('*')
     ) {
-      this.errorMessage = 'El nombre de usuario no puede contener caracteres especiales';
+      this.errorMessage = 'The username cannot contain special characters';
       return;
-
     }
 
     if (!this.validarContrasenia(this.registerData.password)) {
@@ -91,39 +93,52 @@ export class Register {
     }
 
     this.isLoading = true;
+
     const userToRegister = {
       usuario: this.registerData.username,
       password: this.registerData.password,
     };
 
-    console.log('Registrando usuario:', userToRegister);
+    console.log('Registering user:', userToRegister);
 
     this.authService.register(userToRegister).subscribe({
+
       next: (response) => {
+
         this.isLoading = false;
-        console.log('Registro exitoso:', response);
-        this.successMessage = '¡Registro exitoso!';
-        console.log('Mensaje de error mostrado:', this.successMessage);
+
+        console.log('Successful registration:', response);
+
+        this.successMessage = 'Registration successful!';
+        console.log('Displayed success message:', this.successMessage);
+
         this.cdr.detectChanges();
+
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 2000);
       },
+
       error: (error) => {
+
         this.isLoading = false;
-        console.error('Error en registro:', error);
+
+        console.error('Registration error:', error);
+
         if (error.status === 409) {
-          this.errorMessage = 'El nombre de usuario ya existe';
+          this.errorMessage = 'The username already exists';
         } else if (error.status === 400) {
-          this.errorMessage = 'Datos inválidos. Verifica la información';
+          this.errorMessage = 'Invalid data. Verify the information';
         } else if (error.status === 401) {
-            this.errorMessage = 'No autorizado. Intenta de nuevo';
+          this.errorMessage = 'Unauthorized. Please try again';
         } else if (error.status === 200) {
-          this.successMessage = 'Usuario registrado exitosamente 🎉';
+          this.successMessage = 'User registered successfully 🎉';
         } else {
-          this.errorMessage = 'Error al registrar el usuario ' + this.errorMessage;
+          this.errorMessage = 'Error registering user ' + this.errorMessage;
         }
-        console.log('Mensaje de error mostrado:', this.errorMessage);
+
+        console.log('Displayed error message:', this.errorMessage);
+
         this.cdr.detectChanges();
       },
     });
