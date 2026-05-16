@@ -29,7 +29,7 @@ export class Login {
     this.errorMessage = '';
     this.successMessage = '';
     if (!this.loginData.username || !this.loginData.password) {
-      alert('Por favor, completa todos los campos');
+      alert('Por favor, completa All los campos');
       return;
     }
 

@@ -70,7 +70,7 @@ export class Register {
     this.successMessage = '';
 
     if (!this.registerData.username || !this.registerData.password) {
-      this.errorMessage = 'Todos los campos son obligatorios';
+      this.errorMessage = 'All los campos son obligatorios';
       return;
     }
 
