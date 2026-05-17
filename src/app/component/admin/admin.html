@@ -1,0 +1,261 @@
+<div class="admin-wrap">
+
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <h1 class="admin-title">Administrator</h1>
+    </div>
+
+    <div class="admin-header-right">
+      <span class="admin-user">{{ nombreAdmin }}</span>
+    </div>
+  </div>
+
+  <div class="admin-stats">
+
+    <div class="stat-chip">
+      <div>
+        <div class="stat-chip-val">{{ totalUsuarios }}</div>
+        <div class="stat-chip-label">Total Users</div>
+      </div>
+    </div>
+
+    <div class="stat-chip">
+      <div>
+        <div class="stat-chip-val">{{ usuariosActivos }}</div>
+        <div class="stat-chip-label">Active</div>
+      </div>
+    </div>
+
+    <div class="stat-chip warn">
+      <div>
+        <div class="stat-chip-val">{{ usuariosBaneados }}</div>
+        <div class="stat-chip-label">Banned</div>
+      </div>
+    </div>
+
+    <div class="stat-chip">
+      <div>
+        <div class="stat-chip-val">{{ totalPartidas }}</div>
+        <div class="stat-chip-label">Games Played</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="admin-tabs">
+
+    <button class="tab-btn" [class.active]="tabActivo === 'usuarios'" (click)="tabActivo = 'usuarios'">
+      Users
+    </button>
+
+    <button class="tab-btn" [class.active]="tabActivo === 'historial'" (click)="tabActivo = 'historial'">
+      Activity History
+    </button>
+
+  </div>
+
+  <div class="admin-panel" *ngIf="tabActivo === 'usuarios'">
+
+    <div class="search-bar">
+
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search user..."
+        [(ngModel)]="busqueda"
+      />
+
+      <span class="search-count">{{ usuariosFiltrados.length }} results</span>
+    </div>
+
+    <div class="table-wrap">
+
+      <table class="admin-table">
+
+        <thead>
+        <tr>
+          <th>User</th>
+          <th>Role</th>
+          <th>Matches</th>
+          <th>Points</th>
+          <th>Last Access</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr *ngFor="let u of usuariosFiltrados" [class.fila-baneada]="u.baneado">
+
+          <td>{{ u.usuario }}</td>
+
+          <td>
+              <span class="rol-texto" [class.rol-admin]="u.rol === 'ADMIN'">
+                {{ u.rol }}
+              </span>
+          </td>
+
+          <td class="td-num">{{ u.partidasJugadas }}</td>
+          <td class="td-num">{{ u.puntosTotales }}</td>
+          <td class="td-fecha">{{ u.ultimoAcceso | date:'dd/MM/yy HH:mm' }}</td>
+
+          <td>
+              <span class="estado-badge" [class.activo]="!u.baneado" [class.baneado]="u.baneado">
+                {{ u.baneado ? '🚫 Banned' : '✅ Active' }}
+              </span>
+          </td>
+
+          <td>
+            <div class="acciones">
+
+              <button class="btn-accion info"
+                      title="View history"
+                      (click)="verHistorial(u)">
+                📋
+              </button>
+
+              <button class="btn-accion"
+                      [class.warn]="!u.baneado"
+                      [class.success]="u.baneado"
+                      [title]="u.baneado ? 'Unban' : 'Ban'"
+                      (click)="toggleBan(u)"
+                      [disabled]="u.rol === 'ADMIN'">
+                {{ u.baneado ? '✅' : '🚫' }}
+              </button>
+
+              <button class="btn-accion danger"
+                      title="Delete user"
+                      (click)="confirmarEliminar(u)"
+                      [disabled]="u.rol === 'ADMIN'">
+                🗑️
+              </button>
+
+            </div>
+          </td>
+
+        </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <div class="admin-panel" *ngIf="tabActivo === 'historial'">
+
+    <div class="search-bar">
+
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Filter by user..."
+        [(ngModel)]="filtroHistorial"
+      />
+
+    </div>
+
+    <div class="table-wrap">
+
+      <table class="admin-table">
+
+        <thead>
+        <tr>
+          <th>User</th>
+          <th>Action</th>
+          <th>Category</th>
+          <th>Difficulty</th>
+          <th>Points</th>
+          <th>Accuracy</th>
+          <th>Date</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr *ngFor="let h of historialFiltrado">
+
+          <td>{{ h.usuario }}</td>
+
+          <td>
+              <span class="accion-badge" [class]="'accion-' + h.tipo">
+                {{ h.accionLabel }}
+              </span>
+          </td>
+
+          <td>{{ h.categoria || '—' }}</td>
+
+          <td>
+              <span class="dif-badge" [class]="'dif-' + h.dificultad" *ngIf="h.dificultad">
+                {{ h.dificultad }}
+              </span>
+
+            <span *ngIf="!h.dificultad">—</span>
+          </td>
+
+          <td class="td-num">{{ h.puntos ?? '—' }}</td>
+          <td class="td-num">{{ h.precision ? h.precision + '%' : '—' }}</td>
+          <td class="td-fecha">{{ h.fecha | date:'dd/MM/yy HH:mm' }}</td>
+
+        </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-overlay" *ngIf="usuarioAEliminar">
+
+  <div class="modal-box">
+
+    <h3>Delete User</h3>
+
+    <p>
+      This action will permanently delete
+      <strong>{{ usuarioAEliminar?.usuario }}</strong>.
+      It cannot be undone.
+    </p>
+
+    <div class="modal-actions">
+      <button class="btn-danger-sm" (click)="eliminarUsuario()">Yes, delete</button>
+      <button class="btn-secondary-sm" (click)="usuarioAEliminar = null">Cancel</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="usuarioHistorial">
+
+  <div class="modal-box modal-grande">
+
+    <h3>History of {{ usuarioHistorial?.usuario }}</h3>
+
+    <div class="historial-mini">
+
+      <div class="historial-item" *ngFor="let h of getHistorialUsuario(usuarioHistorial!.usuario)">
+
+        <span class="accion-badge" [class]="'accion-' + h.tipo">{{ h.accionLabel }}</span>
+
+        <span class="hi-cat">{{ h.categoria || '—' }}</span>
+
+        <span class="hi-pts" *ngIf="h.puntos">{{ h.puntos }} pts</span>
+
+        <span class="hi-fecha">{{ h.fecha | date:'dd/MM/yy HH:mm' }}</span>
+
+      </div>
+
+      <div class="historial-empty" *ngIf="getHistorialUsuario(usuarioHistorial!.usuario).length === 0">
+        No recorded activity.
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary-sm" (click)="usuarioHistorial = null">Close</button>
+    </div>
+
+  </div>
+</div>

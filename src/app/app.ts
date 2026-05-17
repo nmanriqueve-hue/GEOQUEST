@@ -11,17 +11,29 @@ import { filter } from 'rxjs/operators';
   templateUrl: './app.html',
 })
 export class App {
+  esAdmin = false;
 
   mostrarNavbar = false;
 
   // Rutas donde NO aparece el navbar
-  private rutasSinNavbar = ['/login', '/register', '/'];
+  private rutasSinNavbar = ['/login', '/register', '/', ];
 
   constructor(private router: Router) {
+    this.esAdmin = this.router.url.includes('/admin');
+
+    // Revisar cada vez que cambie la ruta
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe((e: any) => {
+      this.esAdmin = e.urlAfterRedirects.includes('/admin');
+    });
+
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe((e: any) => {
       this.mostrarNavbar = !this.rutasSinNavbar.includes(e.urlAfterRedirects);
     });
   }
+
+
 }
