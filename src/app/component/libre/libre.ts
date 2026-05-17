@@ -15,9 +15,4 @@ export class Libre {
     private router: Router,
   ) {}
 
-  cerrarSesion(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-    console.log('Sesión cerrada correctamente');
-  }
 }

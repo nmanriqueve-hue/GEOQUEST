@@ -1,5 +1,5 @@
 export interface UsuarioDTO {
-  usuario: string;
+  nombreUsuario: string;
   password: string;
 }
 

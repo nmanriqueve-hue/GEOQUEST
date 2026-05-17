@@ -41,7 +41,7 @@ export class Login {
     this.errorMessage = '';
 
     const loginRequest = {
-      usuario: this.loginData.username,
+      nombreUsuario: this.loginData.username,
       password: this.loginData.password,
     };
 

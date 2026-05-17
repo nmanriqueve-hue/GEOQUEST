@@ -95,7 +95,7 @@ export class Register {
     this.isLoading = true;
 
     const userToRegister = {
-      usuario: this.registerData.username,
+      nombreUsuario: this.registerData.username,
       password: this.registerData.password,
     };
 
