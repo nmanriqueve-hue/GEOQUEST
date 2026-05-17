@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
+import { UsuarioService } from '../../service/usuario.service';
 
 @Component({
   selector: 'app-perfil',
@@ -9,22 +10,48 @@ import { AuthService } from '../../service/auth.service';
   styleUrl: './perfil.css',
 })
 export class Perfil {
-  usuario: string | null = '';
+  usuario: string = '';
+  ranking: number = 0;
+  preguntasCorrectas: number = 0;
+  partidasJugadas: number = 0;
+  logros: number = 0;
 
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private usuarioSer: UsuarioService,
+    private authSer: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.usuario = this.authService.getNombreDesdeToken();
-    console.log('Usuario:', this.usuario);
-  }
+    this.usuario = <string>this.authSer.getNombreDesdeToken();
 
+    this.usuarioSer.getRanking(this.usuario).subscribe({
+      next: (ranking) => {
+        this.ranking = ranking;
+        this.cdr.detectChanges();
+      }
+    });
 
-  cerrarSesion(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-    console.log('Sesión cerrada correctamente');
+    this.usuarioSer.getPreguntasCorrectas(this.usuario).subscribe({
+      next: (correctas) => {
+        this.preguntasCorrectas = correctas;
+        this.cdr.detectChanges();
+      }
+    });
+
+    this.usuarioSer.getPartidasJugadas(this.usuario).subscribe({
+      next: (partidas) => {
+        this.partidasJugadas = partidas;
+        this.cdr.detectChanges();
+      }
+    });
+
+    this.usuarioSer.getLogros(this.usuario).subscribe({
+      next: (logros) => {
+        this.logros = logros;
+        this.cdr.detectChanges();
+      }
+    });
   }
 }
+

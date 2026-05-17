@@ -12,7 +12,7 @@ export class UsuarioService {
 
   crearUsuario(usuario: UsuarioDTO): Observable<any> {
     const params = new HttpParams()
-      .set('usuario', usuario.usuario)
+      .set('usuario', usuario.nombreUsuario)
       .set('password', usuario.password);
 
     return this.http.post(`${this.baseUrl}/crear`, null, {
@@ -36,6 +36,25 @@ export class UsuarioService {
     });
   }
 
+  getRanking(username: string): Observable<number> {
+    const params = new HttpParams().set('username', username);
+    return this.http.get<number>(`${this.baseUrl}/ranking`, { params });
+  }
+
+  getLogros(username: string): Observable<number> {
+    const params = new HttpParams().set('username', username);
+    return this.http.get<number>(`${this.baseUrl}/cantlogros`, { params });
+  }
+
+  getPreguntasCorrectas(username: string): Observable<number> {
+    const params = new HttpParams().set('username', username);
+    return this.http.get<number>(`${this.baseUrl}/preguntascorrectas`, { params });
+  }
+
+  getPartidasJugadas(username: string): Observable<number> {
+    const params = new HttpParams().set('username', username);
+    return this.http.get<number>(`${this.baseUrl}/partidasjugadas`, { params });
+  }
   verificarCuenta(token: number): Observable<any> {
     const params = new HttpParams().set('token', token.toString());
     return this.http.get(`${this.baseUrl}/verificar`, {
