@@ -19,7 +19,7 @@ export class PartidaService {
       .set('categoria', categoria)
       .set('username', username);
 
-    return this.http.get(`${this.url}/iniciardificultad`, { params });
+    return this.http.get(`${this.url}/iniciarCategoria`, { params });
   }
 
   iniciarPartidaDificultad(dificultad: number, username: string): Observable<any> {
@@ -33,9 +33,10 @@ export class PartidaService {
   finalizarPartida(id: number, cantRes: number, puntos: number): Observable<any> {
     const params = new HttpParams()
       .set('id', id)
-      .set('cantRes', cantRes)
-      .set('cantRes', puntos);
+      .set('respuestaCorrecta', cantRes)  // ← nombre exacto del @RequestParam
+      .set('puntos', puntos);
 
-    return this.http.get(`${this.url}/update`, { params });
+    return this.http.put(`${this.url}/update`, null, { params });
   }
+
 }

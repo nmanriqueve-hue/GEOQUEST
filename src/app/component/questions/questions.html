@@ -1,69 +1,107 @@
+<!-- quiz.component.html -->
 <div class="q-wrap">
 
-  <h1 class="q-title">{{ title }}</h1>
+  <h1 class="q-title">{{ tituloQuiz }}</h1>
 
-  <div class="q-panel">
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!--  GAME PANEL                                                           -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
 
+  <div class="loading" *ngIf="cargando">Loading...</div>
+  <div class="q-panel" *ngIf="!cargando && !juegoTerminado">
+    <!-- Top HUD -->
     <div class="q-topbar">
-      <div class="q-hud-text q-chip">Total points: <span class="q-hud-num">0</span></div>
-
-      <div class="q-hud-barra-wrap">
-        <div class="q-hud-barra" style="width: 10%"></div>
+      <div class="q-hud-text q-chip">
+        Total points: <span class="q-hud-num">{{ puntajeActumulado }}</span>
       </div>
 
-      <div class="q-hud-text q-chip">Question <span class="q-hud-num">1</span> / 10</div>
+      <div class="q-hud-barra-wrap" role="progressbar"
+           [attr.aria-valuenow]="preguntaActual"
+           [attr.aria-valuemax]="totalPreguntas">
+        <div class="q-hud-barra" [style.width]="progreso"></div>
+      </div>
+
+      <div class="q-hud-text q-chip" [class.q-chip--danger]="tiempoRestante <= 10">
+        ⏱ <span class="q-hud-num">{{ tiempoRestante }}s</span>
+      </div>
+
+      <div class="q-hud-text q-chip">
+        Question <span class="q-hud-num">{{ preguntaActual + 1 }}</span> / {{ totalPreguntas }}
+      </div>
     </div>
 
+    <!-- Question area -->
     <div class="question-zone">
-      <ng-content /><!-- question -->
-      <div class="question-flag">country here</div>
+      <p class="q-subtitle">{{ dificultadLabel }}</p>
+
+      <!-- imagen si viene en el enunciado -->
+      <img *ngIf="enunciadoImagen"
+           [src]="enunciadoImagen"
+           class="question-img"
+           alt="flag" />
+
+      <div class="question-flag">{{ enunciadoTexto }}</div>
     </div>
 
+    <!-- Answer options grid -->
     <div class="options-grid">
-
-      <div class="option-btn" data-idx="0">
-        <span class="btn-emoji">🇨🇴</span>
-        <span class="btn-nombre">Colombia</span>
-      </div>
-
-      <div class="option-btn" data-idx="1">
-        <span class="btn-emoji">🇧🇷</span>
-        <span class="btn-nombre">Brazil</span>
-      </div>
-
-      <div class="option-btn" data-idx="2">
-        <span class="btn-emoji">🇦🇷</span>
-        <span class="btn-nombre">Argentina</span>
-      </div>
-
-      <div class="option-btn" data-idx="3">
-        <span class="btn-emoji">🇻🇪</span>
-        <span class="btn-nombre">Venezuela</span>
-      </div>
-
+      <button
+        *ngFor="let opcion of opciones; let i = index"
+        [class]="claseOpcion(i)"
+        (click)="seleccionarOpcion(i)"
+        [disabled]="feedbackEstado !== 'idle'"
+        [attr.data-idx]="i">
+        <span class="btn-nombre">{{ opcion.texto }}</span>
+      </button>
     </div>
 
-    <div class="feedback" id="feedback"></div>
+    <!-- Inline feedback -->
+    <div class="feedback"
+         [class.visible]="feedbackEstado !== 'idle'"
+         [class.feedback--correcto]="feedbackEstado === 'correcto'"
+         [class.feedback--incorrecto]="feedbackEstado === 'incorrecto'">
+      {{ feedbackMensaje }}
+    </div>
 
-    <button class="next-btn">Next →</button>
+    <!-- Next button (only shown after answering) -->
+    <button class="next-btn"
+            *ngIf="feedbackEstado !== 'idle'"
+            (click)="siguientePregunta()">
+      {{ preguntaActual < totalPreguntas - 1 ? 'Next →' : 'See Results →' }}
+    </button>
+
   </div>
 
-  <div class="q-panel result-overlay" id="resultOverlay">
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!--  RESULT OVERLAY                                                       -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="q-panel result-overlay" *ngIf="juegoTerminado">
 
-    <p style="font-size:14px;color:var(--c-light-blue);letter-spacing:.1em;text-transform:uppercase">
-      Final Result
-    </p>
+    <div class="result-trophy">
+      <div class="trophy-icon">
+        {{ respuestasCorrectas / totalPreguntas >= 0.9 ? '🏆' :
+        respuestasCorrectas / totalPreguntas >= 0.7 ? '🥈' :
+          respuestasCorrectas / totalPreguntas >= 0.5 ? '🥉' : '📚' }}
+      </div>
+      <div class="trophy-rays"></div>
+    </div>
 
-    <div class="result-score" id="resultScore">0/10</div>
-
-    <p class="result-label" id="resultLabel"></p>
+    <p class="result-eyebrow">Final Result</p>
+    <div class="result-score">{{ respuestasCorrectas }} / {{ totalPreguntas }}</div>
+    <p class="result-pts">{{ puntajeActumulado }} points earned</p>
+    <p class="result-label">{{ etiquetaResultado }}</p>
 
     <div class="result-actions">
-      <button class="btn-replay">Play Again</button>
-      <button class="btn-menu" onclick="location.href='../modo.html'">Back to Menu</button>
+      <button class="btn-replay" (click)="reiniciar()">
+        <span class="btn-replay-icon">↺</span> Play Again
+      </button>
+      <button class="btn-menu" routerLink="/modo">Back to Menu</button>
     </div>
 
   </div>
+
+
 </div>
 
-<button class="btn-back" routerLink="/modo">←</button>
+<!-- Back button (always visible) -->
+<button class="btn-back" routerLink="/modo" *ngIf="!juegoTerminado">←</button>
