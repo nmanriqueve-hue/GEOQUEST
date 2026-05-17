@@ -1,0 +1,91 @@
+<div class="ach-wrap">
+
+  <div class="ach-header">
+    <h1 class="ach-title">My Achievements</h1>
+    <p class="ach-subtitle">Unlock stickers by completing objectives</p>
+
+    <!-- Overall progress -->
+    <div class="ach-progress">
+      <span class="ach-progress-text">
+        {{ logrosDesbloqueados }} / {{ totalLogros }} unlocked
+      </span>
+
+      <div class="ach-progress-bar-wrap">
+        <div class="ach-progress-bar" [style.width.%]="porcentaje"></div>
+      </div>
+
+      <span class="ach-progress-pct">{{ porcentaje }}%</span>
+    </div>
+  </div>
+
+  <!-- SECTIONS BY TYPE -->
+  <div class="ach-sections">
+
+    <div class="ach-section" *ngFor="let tipo of tiposUnicos">
+
+
+      <div class="ach-section-title">
+
+        <span class="ach-section-icon">{{ tipoConfig[tipo].icon }}</span>
+
+        <span class="ach-section-label">{{ tipoConfig[tipo].label }}</span>
+
+        <span class="ach-section-count">
+          {{ getLogrosPorTipo(tipo).length }} achievements
+        </span>
+      </div>
+
+
+      <div class="ach-grid">
+
+        <div
+          class="stamp"
+          [class.unlocked]="logro.desbloqueado"
+          [class.locked]="!logro.desbloqueado"
+          *ngFor="let logro of getLogrosPorTipo(tipo)"
+        >
+
+
+          <div class="stamp-shine" *ngIf="logro.desbloqueado"></div>
+
+
+          <div class="stamp-inner">
+
+
+            <div class="stamp-icon-wrap">
+
+              <span class="stamp-icon" *ngIf="logro.desbloqueado">
+                {{ tipoConfig[logro.tipo].icon }}
+              </span>
+
+              <span class="stamp-icon locked-icon" *ngIf="!logro.desbloqueado">🔒</span>
+            </div>
+
+
+            <div class="stamp-name">{{ logro.descripcion }}</div>
+
+
+            <div class="stamp-objetivo">{{ logro.objetivo }}</div>
+
+
+            <div class="stamp-puntos" [class.earned]="logro.desbloqueado">
+              <span class="puntos-icon">⭐</span>
+              <span>{{ logro.puntosRecompensa }} pts</span>
+            </div>
+
+          </div>
+
+
+          <div class="stamp-border"
+               [style.border-color]="logro.desbloqueado ? tipoConfig[logro.tipo].color + '55' : 'rgba(255,255,255,0.08)'">
+          </div>
+
+
+          <div class="stamp-badge" *ngIf="logro.desbloqueado">✓</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn-back" routerLink="/home">←</button>
+</div>
