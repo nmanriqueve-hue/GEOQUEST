@@ -15,13 +15,14 @@ export class App {
   mostrarNavbar = false;
 
   // Rutas donde NO aparece el navbar
-  private rutasSinNavbar = ['/login', '/register', '/'];
+  private rutasSinNavbar = ['/questions/categoria/', '/questions/dificultad/'];
 
   constructor(private router: Router) {
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe((e: any) => {
-      this.mostrarNavbar = !this.rutasSinNavbar.includes(e.urlAfterRedirects);
+      const url = e.urlAfterRedirects;
+      this.mostrarNavbar = !this.rutasSinNavbar.some(ruta => url.startsWith(ruta));
     });
   }
 }

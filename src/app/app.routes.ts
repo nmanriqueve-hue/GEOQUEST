@@ -12,6 +12,7 @@ import { ComoJugar } from './component/comoJugar/comoJugar';
 import { ConocerMas } from './component/conocer-mas/conocer-mas';
 import { authGuard } from './service/auth.guard';
 import { Questions } from './component/questions/questions';
+import { Achievements } from './component/achievements/achievements';
 
 export const routes: Routes = [
   {
@@ -35,7 +36,6 @@ export const routes: Routes = [
   {
     path: 'home',
     component: Home,
-    canActivate: [authGuard],
   },
   {
     path: 'modo',
@@ -60,12 +60,10 @@ export const routes: Routes = [
   {
     path: 'comojugar',
     component: ComoJugar,
-    canActivate: [authGuard],
   },
   {
     path: 'conocermas',
     component: ConocerMas,
-    canActivate: [authGuard],
   },
   { path: 'questions/categoria/:id',
     component: Questions,
@@ -73,6 +71,11 @@ export const routes: Routes = [
   { path: 'questions/dificultad/:nivel',
     component: Questions,
     canActivate: [authGuard] },
+  {
+    path: 'achievements',
+    component: Achievements,
+    canActivate: [authGuard],
+  },
   {
     path: '**',
     redirectTo: '',

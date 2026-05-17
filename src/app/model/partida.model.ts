@@ -1,3 +1,4 @@
+
 export interface RespuestaDTO {
   esCorrecta: boolean;
   enunciado: string;
@@ -7,7 +8,7 @@ export interface RespuestaDTO {
 export interface PreguntaDTO {
   enunciado: string;
   dificultad: number;
-  respuesta: RespuestaDTO[];
+  respuesta: RespuestaDTO[]; // correct answers from the API
   idPregunta: number;
 }
 
@@ -20,4 +21,3 @@ export interface PartidaDTO {
   preguntas: PreguntaDTO[];
   idPartida: number;
 }
-

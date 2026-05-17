@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UsuarioService } from '../../service/usuario.service';
+import { AuthService } from '../../service/auth.service';
 
 export type TipoLogro =
   | 'PARTIDAS_JUGADAS'
@@ -37,7 +39,32 @@ export const TIPO_CONFIG: Record<TipoLogro, { icon: string; label: string; color
   templateUrl: './achievements.html',
   styleUrl: './achievements.css',
 })
-export class Achievements implements OnInit {
+export class Achievements {
+  constructor(
+    private usuarioService: UsuarioService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    const username = this.authService.getNombreDesdeToken()!;
+
+    this.usuarioService.getLogrosUsuario(username).subscribe({
+      next: (logrosDesbloqueados) => {
+        console.log('Logros del back:', logrosDesbloqueados);
+        const idsDesbloqueados = logrosDesbloqueados.map((l: any) => l.idLogro);
+        console.log('IDs desbloqueados:', idsDesbloqueados);
+
+        this.logros = this.logros.map(logro => ({
+          ...logro,
+          desbloqueado: idsDesbloqueados.includes(logro.idLogro)
+        }));
+        console.log('Logros después de marcar:', this.logros.filter(l => l.desbloqueado));
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err)
+    });
+  }
   tipoConfig = TIPO_CONFIG;
 
   logros: Logro[] = [
@@ -47,7 +74,7 @@ export class Achievements implements OnInit {
       objetivo: 'Play your first match',
       tipo: 'PRIMERA_VICTORIA',
       puntosRecompensa: 50,
-      desbloqueado: true,
+      desbloqueado: false,
     },
     {
       idLogro: 2,
@@ -55,7 +82,7 @@ export class Achievements implements OnInit {
       objetivo: 'Play 10 matches',
       tipo: 'PARTIDAS_JUGADAS',
       puntosRecompensa: 100,
-      desbloqueado: true,
+      desbloqueado: false,
     },
     {
       idLogro: 3,
@@ -71,7 +98,7 @@ export class Achievements implements OnInit {
       objetivo: 'Get 5 correct answers in a row',
       tipo: 'RESPUESTAS_CORRECTAS',
       puntosRecompensa: 75,
-      desbloqueado: true,
+      desbloqueado: false,
     },
     {
       idLogro: 5,
@@ -87,7 +114,7 @@ export class Achievements implements OnInit {
       objetivo: 'Achieve 100% accuracy in one round',
       tipo: 'RESPUESTAS_CORRECTAS',
       puntosRecompensa: 150,
-      desbloqueado: true,
+      desbloqueado: false,
     },
     {
       idLogro: 7,
@@ -111,7 +138,7 @@ export class Achievements implements OnInit {
       objetivo: 'Play 3 different categories',
       tipo: 'CATEGORIAS_DESCUBIERTAS',
       puntosRecompensa: 80,
-      desbloqueado: true,
+      desbloqueado: false,
     },
     {
       idLogro: 10,
@@ -159,5 +186,4 @@ export class Achievements implements OnInit {
     return this.logros.filter((l) => l.tipo === tipo);
   }
 
-  ngOnInit(): void {}
 }
