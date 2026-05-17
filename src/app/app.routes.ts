@@ -41,77 +41,77 @@ export const routes: Routes = [
   {
     path: 'home',
     component: Home,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'modo',
     component: Modo,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'libre',
     component: Libre,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'aprendizaje',
     component: Aprendizaje,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'perfil',
     component: Perfil,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'comojugar',
     component: ComoJugar,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'conocermas',
     component: ConocerMas,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
-    path: 'questions',
+    path: 'questions/:id',
     component: Questions,
-    //canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'all',
     component: All,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'calling-codes',
     component: CallingCodes,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },  {
     path: 'capitals',
     component: Capitals,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },  {
     path: 'continents',
     component: Continents,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },  {
     path: 'currencies',
     component: Currencies,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },  {
     path: 'flags',
     component: Flags,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },  {
     path: 'language',
     component: Language,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'population',
     component: Population,
-    //canActivate: [authGuard]
+    canActivate: [authGuard]
   },
 
   {
