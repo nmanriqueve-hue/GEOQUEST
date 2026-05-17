@@ -5,7 +5,7 @@ import { Navbar } from '../navbar/navbar';
 
 @Component({
   selector: 'app-libre',
-  imports: [RouterLink, Navbar],
+  imports: [RouterLink],
   templateUrl: './libre.html',
   styleUrl: './libre.css',
 })
