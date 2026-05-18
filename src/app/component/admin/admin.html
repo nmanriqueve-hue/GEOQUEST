@@ -52,6 +52,10 @@
       Activity History
     </button>
 
+    <button class="tab-btn export-btn" (click)="descargarCSV()" title="Download audit log">
+      📥 Export CSV
+    </button>
+
   </div>
 
   <div class="admin-panel" *ngIf="tabActivo === 'usuarios'">
@@ -76,9 +80,7 @@
         <tr>
           <th>User</th>
           <th>Role</th>
-          <th>Matches</th>
           <th>Points</th>
-          <th>Last Access</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
@@ -88,7 +90,7 @@
 
         <tr *ngFor="let u of usuariosFiltrados" [class.fila-baneada]="u.baneado">
 
-          <td>{{ u.usuario }}</td>
+          <td>{{ u.usuario.nombreUsuario }}</td>
 
           <td>
               <span class="rol-texto" [class.rol-admin]="u.rol === 'ADMIN'">
@@ -96,9 +98,7 @@
               </span>
           </td>
 
-          <td class="td-num">{{ u.partidasJugadas }}</td>
           <td class="td-num">{{ u.puntosTotales }}</td>
-          <td class="td-fecha">{{ u.ultimoAcceso | date:'dd/MM/yy HH:mm' }}</td>
 
           <td>
               <span class="estado-badge" [class.activo]="!u.baneado" [class.baneado]="u.baneado">
@@ -108,7 +108,6 @@
 
           <td>
             <div class="acciones">
-
               <button class="btn-accion info"
                       title="View history"
                       (click)="verHistorial(u)">
@@ -163,40 +162,23 @@
         <tr>
           <th>User</th>
           <th>Action</th>
-          <th>Category</th>
-          <th>Difficulty</th>
+          <th>Detail</th>
+          <th>Correct</th>
           <th>Points</th>
-          <th>Accuracy</th>
           <th>Date</th>
         </tr>
         </thead>
 
+
         <tbody>
 
         <tr *ngFor="let h of historialFiltrado">
-
-          <td>{{ h.usuario }}</td>
-
-          <td>
-              <span class="accion-badge" [class]="'accion-' + h.tipo">
-                {{ h.accionLabel }}
-              </span>
-          </td>
-
-          <td>{{ h.categoria || '—' }}</td>
-
-          <td>
-              <span class="dif-badge" [class]="'dif-' + h.dificultad" *ngIf="h.dificultad">
-                {{ h.dificultad }}
-              </span>
-
-            <span *ngIf="!h.dificultad">—</span>
-          </td>
-
+          <td>{{ h.usuario.nombreUsuario }}</td>
+          <td><span class="accion-badge" [class]="'accion-' + h.tipo">{{ h.accionLabel }}</span></td>
+          <td>{{ h.detalle || '—' }}</td>
+          <td class="td-num">{{ h.precision !== undefined ? h.precision + '/10' : '—' }}</td>
           <td class="td-num">{{ h.puntos ?? '—' }}</td>
-          <td class="td-num">{{ h.precision ? h.precision + '%' : '—' }}</td>
           <td class="td-fecha">{{ h.fecha | date:'dd/MM/yy HH:mm' }}</td>
-
         </tr>
 
         </tbody>
@@ -215,7 +197,7 @@
 
     <p>
       This action will permanently delete
-      <strong>{{ usuarioAEliminar?.usuario }}</strong>.
+      <strong>{{ usuarioAEliminar.usuario?.nombreUsuario }}</strong>.
       It cannot be undone.
     </p>
 
@@ -231,11 +213,11 @@
 
   <div class="modal-box modal-grande">
 
-    <h3>History of {{ usuarioHistorial?.usuario }}</h3>
+    <h3>History of {{ usuarioHistorial.usuario?.nombreUsuario }}</h3>
 
     <div class="historial-mini">
 
-      <div class="historial-item" *ngFor="let h of getHistorialUsuario(usuarioHistorial!.usuario)">
+      <div class="historial-item" *ngFor="let h of getHistorialUsuario(usuarioHistorial!.usuario.nombreUsuario)">
 
         <span class="accion-badge" [class]="'accion-' + h.tipo">{{ h.accionLabel }}</span>
 
@@ -247,7 +229,7 @@
 
       </div>
 
-      <div class="historial-empty" *ngIf="getHistorialUsuario(usuarioHistorial!.usuario).length === 0">
+      <div class="historial-empty" *ngIf="getHistorialUsuario(usuarioHistorial!.usuario.nombreUsuario).length === 0">
         No recorded activity.
       </div>
 

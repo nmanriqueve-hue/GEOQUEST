@@ -13,6 +13,6 @@ export class AuditoriaService {
 
 
   getAuditoria(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/auditoria`);
+    return this.http.get<any[]>(`${this.baseUrl}/getall`);
   }
 }

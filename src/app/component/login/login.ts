@@ -15,7 +15,7 @@ export class Login {
     username: '',
     password: '',
   };
-
+  showPassword: boolean = false;
   isLoading = false;
   errorMessage = '';
   successMessage: string = '';
@@ -57,7 +57,11 @@ export class Login {
         this.cdr.detectChanges();
 
         setTimeout(() => {
-          this.router.navigate(['/home']);
+          if (this.authService.getUserRole() === 'ADMIN') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/home']);
+          }
         }, 2000);
       },
 

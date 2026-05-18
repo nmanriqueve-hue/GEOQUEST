@@ -15,6 +15,8 @@ import { authGuard } from './service/auth.guard';
 import { Questions } from './component/questions/questions';
 import { Achievements } from './component/achievements/achievements';
 import { Ranking } from './component/ranking/ranking';
+import { adminGuard } from './service/admin.guard';
+import { userGuard } from './service/user.guard';
 
 export const routes: Routes = [
   {
@@ -42,22 +44,22 @@ export const routes: Routes = [
   {
     path: 'modo',
     component: Modo,
-    // canActivate: [authGuard],
+    canActivate: [authGuard, userGuard],
   },
   {
     path: 'libre',
     component: Libre,
-    // canActivate: [authGuard],
+    canActivate: [authGuard, userGuard],
   },
   {
     path: 'aprendizaje',
     component: Aprendizaje,
-    // canActivate: [authGuard],
+    canActivate: [authGuard, userGuard],
   },
   {
     path: 'perfil',
     component: Perfil,
-    // canActivate: [authGuard],
+    canActivate: [authGuard, userGuard],
   },
   {
     path: 'comojugar',
@@ -69,26 +71,25 @@ export const routes: Routes = [
   },
   { path: 'questions/categoria/:id',
     component: Questions,
-    // canActivate: [authGuard]
+    canActivate: [authGuard, userGuard]
   },
   { path: 'questions/dificultad/:nivel',
     component: Questions,
-    // canActivate: [authGuard]
+    canActivate: [authGuard, userGuard]
   },
   {
     path: 'achievements',
     component: Achievements,
-    // canActivate: [authGuard],
+    canActivate: [authGuard, userGuard],
   },
   {
     path: 'ranking',
     component: Ranking,
-    // canActivate: [authGuard],
   },
   {
     path: 'admin',
     component: Admin,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminGuard],
   },
   {
     path: '**',

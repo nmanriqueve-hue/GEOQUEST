@@ -69,9 +69,10 @@ export class UsuarioService {
     });
   }
 
-  ban(username: string): Observable<any> {
+  toggleBan(username: string): Observable<any> {
+    const params = new HttpParams().set('username', username);
     return this.http.put(`${this.baseUrl}/ban`, null, {
-      params: new HttpParams().set('username', username),
+      params,
       responseType: 'text'
     });
   }

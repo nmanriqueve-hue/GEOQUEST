@@ -29,9 +29,10 @@
 
 .admin-title {
   font-family: 'Jomhuria', serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(3rem, 7vw, 5.5rem);
   color: var(--c-pale);
   line-height: 1;
+  text-shadow: 0 0 20px var(--c-light-teal);
   letter-spacing: 0.03em;
 }
 
