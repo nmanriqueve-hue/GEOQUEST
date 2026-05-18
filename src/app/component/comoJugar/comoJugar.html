@@ -1,46 +1,68 @@
-<div class="contenedor-como-jugar">
+<div class="hero">
 
-  <div class="card-como-jugar">
+  <div class="hero-header">
+    <h1 class="hero-title">How to play?</h1>
+  </div>
 
-    <h1>How to play?</h1>
+  <p class="hero-descripcion">
+    GeoQuest is a video game designed for learning geography and history
+    in a simple and fun way, where you can progress by answering questions
+    in different world contexts related to countries, capitals, flags,
+    continents, and historical events.
+  </p>
 
-    <p>
-      GeoQuest is a video game designed for learning geography and history
-      in a simple and fun way, where you can progress by answering questions
-      in different world contexts related to countries, capitals, flags,
-      continents, and historical events.
-    </p>
+  <p class="hero-descripcion">
+    The platform offers different game modes, which you can select before starting.
+  </p>
 
-    <p>
-      The platform offers different game modes, which you can select before starting.
-    </p>
+  <h2 class="hero-team">Question classification</h2>
 
-    <div class="seccion">
-      <h2>Question classification</h2>
+  <div class="hero-cards">
 
-      <ul>
-        <p>Each question has its own characteristics that will be chosen by the player, such as:</p>
-        <li> ☆ Category</li>
-        <li> ★ Type</li>
-        <li> ☆ Difficulty level</li>
-      </ul>
+    <div class="hero-card">
+      <img class="card-img" src="assets/category.png" alt="Category" />
+      <div class="card-content">
+        <h2 class="card-title">Category</h2>
+        <p class="card-texto">
+          Each question belongs to a specific thematic category such as countries,
+          capitals, flags, continents, or historical events.
+        </p>
+      </div>
     </div>
 
-    <div class="seccion">
-      <h2>How to progress?</h2>
+    <div class="hero-card">
+      <img class="card-img" src="assets/type.png" alt="Type" />
+      <div class="card-content">
+        <h2 class="card-title">Type</h2>
+        <p class="card-texto">
+          Questions come in different formats. The most common is multiple-choice,
+          where you select the correct answer from the given options.
+        </p>
+      </div>
+    </div>
 
-      <p>
-        Each question is associated with a country, historical event, or representative element
-        such as its flag or capital.
-      </p>
-
-      <p>
-        Users participate in matches where they answer questions by selecting the correct answer
-        in a multiple-choice version, and they earn points based on their correct answers,
-        which increases their ranking within the game.
-      </p>
+    <div class="hero-card">
+      <img class="card-img" src="assets/difficulty.jpg" alt="Difficulty level" />
+      <div class="card-content">
+        <h2 class="card-title">Difficulty level</h2>
+        <p class="card-texto">
+          Every question has an assigned difficulty. You can choose your preferred
+          level before starting a match to match your knowledge.
+        </p>
+      </div>
     </div>
 
   </div>
+
+  <h2 class="hero-team" style="margin-top: 32px;">How to progress?</h2>
+
+  <p class="hero-descripcion">
+    Each question is associated with a country, historical event, or representative element
+    such as its flag or capital. Users participate in matches where they answer questions
+    by selecting the correct answer in a multiple-choice version, and they earn points
+    based on their correct answers, which increases their ranking within the game.
+  </p>
+
   <button class="btn-back" routerLink="/home">←</button>
+
 </div>

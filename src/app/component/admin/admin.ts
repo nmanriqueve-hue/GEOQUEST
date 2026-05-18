@@ -33,7 +33,7 @@ export interface RegistroActividad {
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, DatePipe],
+  imports: [CommonModule, FormsModule, DatePipe],
   templateUrl: './admin.html',
   styleUrl: './admin.css',
 })
