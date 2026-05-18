@@ -1,0 +1,59 @@
+<div class="ranking-wrap">
+
+  <div class="ranking-header">
+    <h1 class="ranking-title">Ranking</h1>
+    <p class="ranking-subtitle">Los mejores exploradores del mundo</p>
+  </div>
+
+  <div class="ranking-panel">
+
+    <div class="ranking-search">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar jugador..."
+        [(ngModel)]="busqueda"
+      />
+
+    </div>
+
+    <div class="table-wrap">
+      <table class="ranking-table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Jugador</th>
+          <th>Partidas</th>
+          <th>Precisión</th>
+          <th>Puntos</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let j of jugadoresFiltrados"
+            [class.fila-top1]="j.posicion === 1"
+            [class.fila-top2]="j.posicion === 2"
+            [class.fila-top3]="j.posicion === 3">
+
+          <td class="td-pos">
+            <span class="pos-badge gold"   *ngIf="j.posicion === 1">1</span>
+            <span class="pos-badge silver" *ngIf="j.posicion === 2">2</span>
+            <span class="pos-badge bronze" *ngIf="j.posicion === 3">3</span>
+            <span class="pos-num"          *ngIf="j.posicion > 3">{{ j.posicion }}</span>
+          </td>
+
+          <td class="td-jugador">{{ j.usuario }}</td>
+          <td class="td-num">{{ j.partidasJugadas }}</td>
+          <td class="td-num">{{ j.precision }}%</td>
+          <td class="td-pts">{{ j.puntosTotales }}</td>
+
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <button class="btn-back" routerLink="/home">←</button>
+
+</div>
