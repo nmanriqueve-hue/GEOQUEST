@@ -61,12 +61,23 @@ export class UsuarioService {
     const params = new HttpParams().set('username', username);
     return this.http.get<Logro[]>(`${this.baseUrl}/logros`, { params });
   }
-  verificarCuenta(token: number): Observable<any> {
-    const params = new HttpParams().set('token', token.toString());
-    return this.http.get(`${this.baseUrl}/verificar`, {
-      params: params,
-      responseType: 'text',
+
+  eliminarUsuarioPorNombre(username: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/deletebyname`, {
+      params: new HttpParams().set('name', username),
+      responseType: 'text'
     });
+  }
+
+  ban(username: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/ban`, null, {
+      params: new HttpParams().set('username', username),
+      responseType: 'text'
+    });
+  }
+
+  getAllUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/getall`);
   }
 
   obtenerTodosUsuarios(): Observable<UsuarioDTO[]> {

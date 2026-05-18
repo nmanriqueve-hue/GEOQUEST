@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 import { Home } from './component/home/home';
 import { Login } from './component/login/login';
+import { Admin } from './component/admin/admin';
 import { Register } from './component/register/register';
 import { Modo } from './component/modo/modo';
 import { Libre } from './component/libre/libre';
@@ -74,6 +75,11 @@ export const routes: Routes = [
   {
     path: 'achievements',
     component: Achievements,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin',
+    component: Admin,
     canActivate: [authGuard],
   },
   {

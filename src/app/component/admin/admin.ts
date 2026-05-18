@@ -3,6 +3,8 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
+import { UsuarioService } from '../../service/usuario.service';
+import { AuditoriaService } from '../../service/auditoria.service';
 
 export interface UsuarioAdmin {
   id: number;
@@ -39,71 +41,89 @@ export class Admin implements OnInit {
 
   nombreAdmin = '';
   tabActivo: 'usuarios' | 'historial' = 'usuarios';
-
   busqueda = '';
   filtroHistorial = '';
-
   usuarioAEliminar: UsuarioAdmin | null = null;
   usuarioHistorial: UsuarioAdmin | null = null;
-
-  usuarios: UsuarioAdmin[] = [
-    { id: 1, usuario: 'admin', rol: 'ADMIN', partidasJugadas: 0, puntosTotales: 0, ultimoAcceso: new Date(), baneado: false },
-    { id: 2, usuario: 'luna', rol: 'USER', partidasJugadas: 24, puntosTotales: 3400, ultimoAcceso: new Date('2026-05-15'), baneado: false },
-    { id: 3, usuario: 'isabella', rol: 'USER', partidasJugadas: 18, puntosTotales: 2100, ultimoAcceso: new Date('2026-05-14'), baneado: false },
-    { id: 4, usuario: 'nataly', rol: 'USER', partidasJugadas: 31, puntosTotales: 4800, ultimoAcceso: new Date('2026-05-16'), baneado: false },
-    { id: 5, usuario: 'spammer1', rol: 'USER', partidasJugadas: 2, puntosTotales: 50, ultimoAcceso: new Date('2026-05-10'), baneado: true },
-  ];
-
-  historial: RegistroActividad[] = [
-    { id: 1, usuario: 'luna', tipo: 'registro', accionLabel: '🆕 Registration', fecha: new Date('2026-05-01') },
-    { id: 2, usuario: 'luna', tipo: 'login', accionLabel: '🔑 Login', fecha: new Date('2026-05-10') },
-    { id: 3, usuario: 'luna', tipo: 'partida', accionLabel: '🎮 Match', categoria: 'Flags', dificultad: 'facil', puntos: 320, precision: 90, fecha: new Date('2026-05-10') },
-    { id: 4, usuario: 'luna', tipo: 'partida', accionLabel: '🎮 Match', categoria: 'Capitals', dificultad: 'medio', puntos: 580, precision: 85, fecha: new Date('2026-05-12') },
-    { id: 5, usuario: 'luna', tipo: 'logro', accionLabel: '🏆 Achievement Earned', categoria: 'On a Streak', fecha: new Date('2026-05-12') },
-    { id: 6, usuario: 'isabella', tipo: 'registro', accionLabel: '🆕 Registration', fecha: new Date('2026-05-02') },
-    { id: 7, usuario: 'isabella', tipo: 'partida', accionLabel: '🎮 Match', categoria: 'Languages', dificultad: 'dificil', puntos: 900, precision: 95, fecha: new Date('2026-05-14') },
-    { id: 8, usuario: 'nataly', tipo: 'registro', accionLabel: '🆕 Registration', fecha: new Date('2026-05-03') },
-    { id: 9, usuario: 'nataly', tipo: 'partida', accionLabel: '🎮 Match', categoria: 'Names', dificultad: 'medio', puntos: 450, precision: 80, fecha: new Date('2026-05-16') },
-    { id: 10, usuario: 'spammer1', tipo: 'login', accionLabel: '🔑 Login', fecha: new Date('2026-05-10') },
-  ];
+  usuarios: UsuarioAdmin[] = [];
+  historial: RegistroActividad[] = [];
 
   constructor(
     private authService: AuthService,
+    private usuarioService: UsuarioService,
+    private auditoriaService: AuditoriaService,
     private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.nombreAdmin = this.authService.getNombreDesdeToken() || 'Admin';
+    if (this.authService.getToken()) {
+      this.cargarUsuarios();
+      this.cargarHistorial();
+    }
   }
 
-  get totalUsuarios() {
-    return this.usuarios.length;
+  cargarUsuarios(): void {
+    this.usuarioService.getAllUsuarios().subscribe({
+      next: (data) => {
+        this.usuarios = data.map((u: any) => ({
+          id: u.idUsuario,
+          usuario: u.nombreUsuario,
+          rol: u.role as 'ADMIN' | 'USER',
+          partidasJugadas: 0,
+          puntosTotales: u.puntosTotales,
+          ultimoAcceso: new Date(),
+          baneado: !u.accountNonLocked
+        }));
+      },
+      error: (err) => console.error(err)
+    });
   }
 
-  get usuariosActivos() {
-    return this.usuarios.filter(u => !u.baneado).length;
+  cargarHistorial(): void {
+    this.auditoriaService.getAuditoria().subscribe({
+      next: (data) => {
+        this.historial = data.map((a: any) => ({
+          id: a.idAuditoria,
+          usuario: a.nombreUsuario,
+          tipo: a.tipoAccion.toLowerCase() as TipoAccion,
+          accionLabel: this.getLabelAccion(a.tipoAccion),
+          fecha: new Date(a.fecha),
+          puntos: this.extraerPuntos(a.detalle)
+        }));
+      },
+      error: (err) => console.error(err)
+    });
   }
 
-  get usuariosBaneados() {
-    return this.usuarios.filter(u => u.baneado).length;
+  getLabelAccion(tipo: string): string {
+    switch (tipo) {
+      case 'LOGIN':    return '🔑 Login';
+      case 'PARTIDA':  return '🎮 Match';
+      case 'LOGRO':    return '🏆 Achievement';
+      case 'REGISTRO': return '🆕 Registration';
+      default:         return tipo;
+    }
   }
 
-  get totalPartidas() {
-    return this.usuarios.reduce((s, u) => s + u.partidasJugadas, 0);
+  extraerPuntos(detalle: string): number | undefined {
+    const match = detalle?.match(/(\d+) pts/);
+    return match ? Number(match[1]) : undefined;
   }
+
+  get totalUsuarios() { return this.usuarios.length; }
+  get usuariosActivos() { return this.usuarios.filter(u => !u.baneado).length; }
+  get usuariosBaneados() { return this.usuarios.filter(u => u.baneado).length; }
+  get totalPartidas() { return this.historial.filter(h => h.tipo === 'partida').length; }
 
   get usuariosFiltrados(): UsuarioAdmin[] {
     const q = this.busqueda.toLowerCase();
-    return q
-      ? this.usuarios.filter(u => u.usuario.toLowerCase().includes(q))
-      : this.usuarios;
+    return q ? this.usuarios.filter(u => u.usuario.toLowerCase().includes(q)) : this.usuarios;
   }
 
   get historialFiltrado(): RegistroActividad[] {
     const q = this.filtroHistorial.toLowerCase();
-    return q
-      ? this.historial.filter(h => h.usuario.toLowerCase().includes(q))
-      : this.historial;
+    return q ? this.historial.filter(h => h.usuario.toLowerCase().includes(q)) : this.historial;
   }
 
   getHistorialUsuario(usuario: string): RegistroActividad[] {
@@ -112,7 +132,10 @@ export class Admin implements OnInit {
 
   toggleBan(u: UsuarioAdmin): void {
     if (u.rol === 'ADMIN') return;
-    u.baneado = !u.baneado;
+    this.usuarioService.ban(u.usuario).subscribe({
+      next: () => u.baneado = !u.baneado,
+      error: (err) => console.error(err)
+    });
   }
 
   confirmarEliminar(u: UsuarioAdmin): void {
@@ -122,12 +145,13 @@ export class Admin implements OnInit {
 
   eliminarUsuario(): void {
     if (!this.usuarioAEliminar) return;
-
-    this.usuarios = this.usuarios.filter(
-      u => u.id !== this.usuarioAEliminar!.id
-    );
-
-    this.usuarioAEliminar = null;
+    this.usuarioService.eliminarUsuarioPorNombre(this.usuarioAEliminar.usuario).subscribe({
+      next: () => {
+        this.usuarios = this.usuarios.filter(u => u.id !== this.usuarioAEliminar!.id);
+        this.usuarioAEliminar = null;
+      },
+      error: (err) => console.error(err)
+    });
   }
 
   verHistorial(u: UsuarioAdmin): void {
@@ -135,8 +159,4 @@ export class Admin implements OnInit {
     this.tabActivo = 'historial';
   }
 
-  cerrarSesion(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
 }
