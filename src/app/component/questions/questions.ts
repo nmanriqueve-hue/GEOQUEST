@@ -3,41 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PartidaService } from '../../service/partida.service';
 import { AuthService } from '../../service/auth.service';
+import { PartidaDTO, PreguntaDTO } from '../../model/partida.model';
 
-// ── Types ────────────────────────────────────────────────────────────────────
-
-export interface RespuestaDTO {
-  esCorrecta: boolean;
-  enunciado: string;
-  idRespuesta: number;
-}
-
-export interface PreguntaDTO {
-  enunciado: string;
-  dificultad: number;
-  respuesta: RespuestaDTO[]; // correct answers from the API
-  idPregunta: number;
-}
-
-export interface PartidaDTO {
-  fecha: string;
-  puntosTotales: number;
-  nivelDificultad: number;
-  respuestasCorrectas: number;
-  estado: string;
-  preguntas: PreguntaDTO[];
-  idPartida: number;
-}
 
 interface OpcionUI {
   texto: string;
   esCorrecta: boolean;
-  codigoIso?: string; // optional – used for flag emoji
+  codigoIso?: string;
 }
-
 type FeedbackEstado = 'idle' | 'correcto' | 'incorrecto';
 
-// ── Component ────────────────────────────────────────────────────────────────
 
 @Component({
   selector: 'app-questions',
@@ -46,26 +21,28 @@ type FeedbackEstado = 'idle' | 'correcto' | 'incorrecto';
   templateUrl: './questions.html',
   styleUrls: ['./questions.css'],
 })
+
+
 export class Questions implements OnInit {
-  // datos del juego
+
   partida!: PartidaDTO;
   cargando = true;
-  tiempoRestante = 30; // segundos por pregunta
+  tiempoRestante = 30;
   private timerInterval: any;
 
-  // estado del quiz
+
   preguntaActual = 0;
   puntajeActumulado = 0;
   respuestasCorrectas = 0;
   juegoTerminado = false;
 
-  // estado de la pregunta actual
+
   opciones: OpcionUI[] = [];
   opcionSeleccionada: number | null = null;
   feedbackEstado: FeedbackEstado = 'idle';
   feedbackMensaje = '';
 
-  // Mapa de nombres para el título
+
   private categoriaNombres: Record<number, string> = {
     1: 'Capitals', 2: 'Flags', 3: 'Language',
     4: 'Calling Codes', 5: 'Currencies',
@@ -78,7 +55,7 @@ export class Questions implements OnInit {
 
   tituloQuiz = 'Quiz';
 
-  // datos del usuario
+
   username = '';
   constructor(
     private partidaService: PartidaService,
@@ -119,7 +96,6 @@ export class Questions implements OnInit {
 
 
 
-  // ── Getters ────────────────────────────────────────────────────────────────
   get pregunta(): PreguntaDTO | undefined {
     return this.partida?.preguntas?.[this.preguntaActual];
   }
@@ -150,7 +126,7 @@ export class Questions implements OnInit {
     return 'Keep practising!';
   }
 
-  // ── Question loading ───────────────────────────────────────────────────────
+
 
   private cargarPregunta(): void {
     this.feedbackEstado = 'idle';
@@ -167,7 +143,8 @@ export class Questions implements OnInit {
       })),
     );
   }
-  // ── User interaction ───────────────────────────────────────────────────────
+
+
 
   seleccionarOpcion(idx: number): void {
     if (this.feedbackEstado !== 'idle') return;
@@ -223,7 +200,6 @@ export class Questions implements OnInit {
     this.cargarPregunta();
   }
 
-  // ── Helpers ────────────────────────────────────────────────────────────────
 
   private shuffleArray<T>(arr: T[]): T[] {
     const a = [...arr];

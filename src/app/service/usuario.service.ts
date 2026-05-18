@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UsuarioDTO } from '../model/usuario.model';
 import { Observable } from 'rxjs';
+import { Logro } from '../component/achievements/achievements';
 
 @Injectable({
   providedIn: 'root',
@@ -54,6 +55,11 @@ export class UsuarioService {
   getPartidasJugadas(username: string): Observable<number> {
     const params = new HttpParams().set('username', username);
     return this.http.get<number>(`${this.baseUrl}/partidasjugadas`, { params });
+  }
+
+  getLogrosUsuario(username: string): Observable<Logro[]> {
+    const params = new HttpParams().set('username', username);
+    return this.http.get<Logro[]>(`${this.baseUrl}/logros`, { params });
   }
   verificarCuenta(token: number): Observable<any> {
     const params = new HttpParams().set('token', token.toString());
