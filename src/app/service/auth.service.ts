@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8081/auth';
+  private apiUrl = 'https://stream-alumni-exorcist.ngrok-free.dev/auth';
 
   constructor(private http: HttpClient) {}
 

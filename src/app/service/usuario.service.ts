@@ -9,7 +9,7 @@ import { Logro } from '../component/achievements/achievements';
 })
 export class UsuarioService {
   constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:8081/usuario';
+  private baseUrl = 'https://stream-alumni-exorcist.ngrok-free.dev/usuario';
 
   crearUsuario(usuario: UsuarioDTO): Observable<any> {
     const params = new HttpParams()

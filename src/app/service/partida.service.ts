@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class PartidaService {
 
-  private url = 'http://localhost:8081/partida';
+  private url = 'https://stream-alumni-exorcist.ngrok-free.dev/partida';
 
   constructor(private http: HttpClient) {}
 

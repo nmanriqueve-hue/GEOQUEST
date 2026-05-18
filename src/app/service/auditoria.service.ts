@@ -9,7 +9,7 @@ import { Logro } from '../component/achievements/achievements';
 })
 export class AuditoriaService {
   constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:8081/auditoria';
+  private baseUrl = 'https://stream-alumni-exorcist.ngrok-free.dev/auditoria';
 
 
   getAuditoria(): Observable<any[]> {
