@@ -13,6 +13,7 @@ import { ConocerMas } from './component/conocer-mas/conocer-mas';
 import { authGuard } from './service/auth.guard';
 import { Questions } from './component/questions/questions';
 import { Achievements } from './component/achievements/achievements';
+import { Ranking } from './component/ranking/ranking';
 
 export const routes: Routes = [
   {
@@ -40,22 +41,22 @@ export const routes: Routes = [
   {
     path: 'modo',
     component: Modo,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'libre',
     component: Libre,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'aprendizaje',
     component: Aprendizaje,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'perfil',
     component: Perfil,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'comojugar',
@@ -67,14 +68,21 @@ export const routes: Routes = [
   },
   { path: 'questions/categoria/:id',
     component: Questions,
-    canActivate: [authGuard] },
+    // canActivate: [authGuard]
+  },
   { path: 'questions/dificultad/:nivel',
     component: Questions,
-    canActivate: [authGuard] },
+    // canActivate: [authGuard]
+  },
   {
     path: 'achievements',
     component: Achievements,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
+  },
+  {
+    path: 'ranking',
+    component: Ranking,
+    // canActivate: [authGuard],
   },
   {
     path: '**',
