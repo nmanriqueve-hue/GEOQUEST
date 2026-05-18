@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UsuarioDTO } from '../model/usuario.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Logro } from '../component/achievements/achievements';
 
 @Injectable({
@@ -75,6 +75,23 @@ export class UsuarioService {
       params,
       responseType: 'text'
     });
+  }
+
+  getRankingUsuarios() {
+    return this.http.get<any[]>(`${this.baseUrl}/getall`).pipe(
+      map(usuarios =>
+        usuarios
+          .filter(u => u.role === 'USER')
+          .sort((a, b) => b.puntosTotales - a.puntosTotales)
+          .map((u, i) => ({
+            posicion:        i + 1,
+            usuario:         u.nombreUsuario,
+            partidasJugadas: u.partidasJugadas ?? 0,
+            precision:       u.precision ?? 0,
+            puntosTotales:   u.puntosTotales
+          }))
+      )
+    );
   }
 
   getAllUsuarios(): Observable<any[]> {

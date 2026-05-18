@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UsuarioService } from '../../service/usuario.service';
 
 export interface JugadorRanking {
   posicion: number;
   usuario: string;
-  partidasJugadas: number;
-  precision: number;
   puntosTotales: number;
 }
 
@@ -21,17 +20,16 @@ export interface JugadorRanking {
 export class Ranking implements OnInit {
 
   busqueda = '';
+  jugadores: JugadorRanking[] = [];
 
-  jugadores: JugadorRanking[] = [
-    { posicion: 1, usuario: 'nataly',     partidasJugadas: 31, precision: 88, puntosTotales: 4800 },
-    { posicion: 2, usuario: 'luna',       partidasJugadas: 24, precision: 90, puntosTotales: 3400 },
-    { posicion: 3, usuario: 'isabella',   partidasJugadas: 18, precision: 95, puntosTotales: 2100 },
-    { posicion: 4, usuario: 'explorer99', partidasJugadas: 12, precision: 74, puntosTotales: 1850 },
-    { posicion: 5, usuario: 'geoking',    partidasJugadas: 9,  precision: 81, puntosTotales: 1200 },
-  ];
+  constructor(private usuarioService: UsuarioService, private cdr: ChangeDetectorRef ) {}
 
-  get top3(): JugadorRanking[] {
-    return this.jugadores.slice(0, 3);
+  ngOnInit(): void {
+    this.usuarioService.getRankingUsuarios().subscribe(data => {
+      console.log(data);
+      this.jugadores = data;
+      this.cdr.detectChanges();
+    });
   }
 
   get jugadoresFiltrados(): JugadorRanking[] {
@@ -39,9 +37,5 @@ export class Ranking implements OnInit {
     return q
       ? this.jugadores.filter(j => j.usuario.toLowerCase().includes(q))
       : this.jugadores;
-  }
-
-  ngOnInit(): void {
-    // this.rankingService.getRanking().subscribe(data => this.jugadores = data);
   }
 }

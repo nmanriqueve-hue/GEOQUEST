@@ -7,10 +7,8 @@ export interface AuthResponse {
   token: string;
   role: string;
 }
-
-export interface LogroDTO{
-  descripcion: string;
-  objetivo: string;
-  tipo: "PARTIDAS_JUGADAS";
-  puntosRecompensa: 0;
+export interface JugadorRanking {
+  posicion: number;
+  usuario: string;
+  puntosTotales: number;
 }

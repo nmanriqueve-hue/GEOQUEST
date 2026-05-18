@@ -17,6 +17,7 @@ export class Register {
     password: '',
   };
 
+  showPassword: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
   isLoading: boolean = false;
