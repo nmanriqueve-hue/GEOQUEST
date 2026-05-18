@@ -1,112 +1,3 @@
-.auth-header-container {
-  position: absolute;
-  top: 30px;
-  left: 55px;
-  right: 40px;
-
-}
-.auth-header {
-
-  display: flex;
-  gap: 12px;
-  background: var(--c-pale);
-  border-radius: 25px;
-  padding: 3px 24px;
-  z-index: -1;
-}
-
-.auth-header img {
-  width: 70px;
-  height: 70px;
-  margin-top: -20px;
-  margin-bottom: -10px;
-  filter: drop-shadow(0 2px 6px rgba(248, 248, 255, 0.79));
-  Z-Index: 1;
-}
-
-.auth-header button {
-  width: 40px;
-  height: 40px;
-  right: 20px;
-
-
-}
-.auth-title {
-  font-family: 'Jaro', sans-serif;
-  font-size: 2rem;
-  color: var(--c-dark-blue);
-  letter-spacing: 0.1em;
-  white-space: nowrap;
-}
-.auth-center {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  flex: 1;
-  justify-content: end;
-  margin-right: 24px;
-}
-
-.auth-center button {
-  padding: 7px 18px;
-  background: var(--c-dark-blue);
-  border: 1.5px solid rgba(177, 195, 212, 0.25);
-  border-radius: 20px;
-  font-family: 'Jaro', sans-serif;
-  font-size: 18px;
-  color: var(--c-pale);
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  width: fit-content;
-  white-space: nowrap;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
-}
-.auth-center button:hover {
-  border: 2px solid var(--c-navy);
-  color: var(--c-pale);
-  transform: translateY(-1px);
-
-}
-
-.auth-right {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-
-}
-
-.auth-right button {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  white-space: nowrap;
-  align-items: center;
-  justify-content: center;
-  border-color: transparent;
-  border-radius: 50%;
-  color: var(--c-dark-blue);
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
-  z-index: 1;
-}
-
-.auth-right button:hover {
-  transform: scale(1.1);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .hero {
   width: 100%;
@@ -118,7 +9,6 @@
   text-align: center;
   padding: 120px 24px 60px;
   gap: 24px;
-
 }
 
 .hero-header {
@@ -135,56 +25,51 @@
   letter-spacing: 0.03em;
 }
 
-
 .hero-descripcion {
   max-width: 680px;
   font-size: 16px;
   color: #A4BDD7;
   line-height: 1.8;
   opacity: 0.85;
-  align-items: flex-start;
-  text-align: left;
-
+  text-align: center;
 }
+
 .hero-team {
   font-family: 'Jaro', sans-serif;
   font-size: 1.3rem;
   color: #2596be;
   letter-spacing: 0.08em;
   text-shadow: 0 0 20px var(--c-light-teal);
-  text-align: left;
-  align-items: flex-start;
+  text-align: center;
+  width: 100%;
+  max-width: 580px;
 }
 
-/* ── CARDS (igual que modo.css) ── */
 .hero-cards {
   margin-top: 8px;
   display: flex;
   gap: 22px;
-  flex-wrap: wrap;
-  justify-content: center;
-  z-index: 1;
   flex-direction: column;
   align-items: center;
+  z-index: 1;
 }
 
 .hero-card {
   position: relative;
   width: 580px;
-  height: 160px;
   background: rgba(41, 63, 99, 0.45);
   border: 2px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
   backdrop-filter: blur(12px);
-  padding: 12px 28px 10px;
+  padding: 24px 28px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   overflow: hidden;
   transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
   animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-
 }
 
 .hero-card:nth-child(1) { animation-delay: 0.05s; }
@@ -192,35 +77,36 @@
 .hero-card:nth-child(3) { animation-delay: 0.19s; }
 
 .hero-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   border-color: rgba(37, 150, 190, 0.55);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.4),
     0 0 40px rgba(37, 150, 190, 0.2);
 }
 
-/* ── AVATAR iniciales ── */
-.card-avatar {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #2596be, #002868);
+.card-info {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Jaro', sans-serif;
-  font-size: 1.6rem;
-  color: #fff;
-  letter-spacing: 0.05em;
-  box-shadow: 0 4px 16px rgba(37, 150, 190, 0.35);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  flex: 1;
+}
+
+.card-foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.hero-card:hover .card-avatar {
-  transform: scale(1.12) rotate(-5deg);
+.hero-card:hover .card-foto {
+  transform: scale(1.08) rotate(3deg);
 }
 
-/* ── TÍTULO ── */
 .card-title {
   font-family: 'Jomhuria', serif;
   font-size: 2.2rem;
@@ -235,20 +121,18 @@
   transform: translateY(-4px);
 }
 
-/* ── DESCRIPCIÓN siempre visible ── */
-.card-desc {
-
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  text-align: left;
-}
-
-.card-desc p {
+.card-texto {
+  font-family: 'Jaro', sans-serif;
   font-size: 0.85rem;
   color: #A4BDD7;
   line-height: 1.5;
   opacity: 0.85;
+  text-align: left;
+}
+
+.card-texto.small {
+  font-size: 0.75rem;
+  opacity: 0.6;
 }
 
 .card-cta {
@@ -271,30 +155,14 @@
   transform: translateY(-2px);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .btn-back {
   position: absolute;
   top: 100px;
   left: 62px;
   z-index: 1;
   padding: 8px 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
   color: var(--c-pale);
   font-family: 'Jaro', sans-serif;
@@ -305,16 +173,29 @@
 }
 
 .btn-back:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   color: var(--c-light-blue);
   transform: translateX(-2px);
 }
 
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
 
+@media (max-width: 640px) {
+  .hero-card {
+    width: 100%;
+    max-width: 340px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
+  .card-foto {
+    align-self: flex-end;
+    width: 80px;
+    height: 80px;
+  }
 
-
-
-
-
-
+  .hero-team { max-width: 100%; }
+}
